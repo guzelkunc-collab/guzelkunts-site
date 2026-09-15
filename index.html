@@ -140,7 +140,7 @@
         <li>Всё, что Вы рассказываете, остаётся между нами</li>
       </ul>
       <a class="btn btn-main" href="https://t.me/guzelkunts">Записаться</a>
-      <a class="btn btn-ghost" href="https://auth.robokassa.ru/merchant/Invoice/OPJkmYaX5UyoTkK_oZaTPA" target="_blank" rel="noopener" style="margin-top:10px">Оплатить 6000 ₽</a>
+      <a class="btn btn-ghost pay-open" href="#pay" style="margin-top:10px">Оплатить 6000 ₽</a>
     </div>
   </div>
 </section>
@@ -232,7 +232,7 @@
       <details>
         <summary>Как оплатить?</summary>
         <div class="answer">
-          <p>Оплата — полная предоплата онлайн через Робокассу. Сначала договоримся о времени консультации в Телеграм, затем Вы оплачиваете по ссылке: <a class="link-inline" href="https://auth.robokassa.ru/merchant/Invoice/OPJkmYaX5UyoTkK_oZaTPA" target="_blank" rel="noopener">оплатить консультацию 6000 ₽</a>. После оплаты я пришлю Вам чек.</p>
+          <p>Оплата — полная предоплата онлайн через Робокассу. Сначала договоримся о времени консультации в Телеграм, затем Вы оплачиваете по ссылке: <a class="link-inline pay-open" href="#pay">оплатить консультацию 6000 ₽</a>. Чек придёт автоматически после оплаты.</p>
           <p>Или напишите мне в Телеграм: <a class="link-inline" href="https://t.me/guzelkunts">@guzelkunts</a></p>
         </div>
       </details>
@@ -324,6 +324,41 @@
     });
   });
   zoom.addEventListener("click", () => zoom.close());
+</script>
+
+<dialog class="pay" id="pay">
+  <div class="pay-box">
+    <button class="pay-close" type="button" aria-label="Закрыть">×</button>
+    <h3>Оплата консультации</h3>
+    <p class="pay-sub">Личная консультация · 75 минут · онлайн · 6000 ₽</p>
+    <label class="check"><input type="checkbox" class="pay-check"> <span>Я ознакомлен(а) и согласен(на) с <a href="oferta.html" target="_blank" rel="noopener">договором оферты</a> и <a href="privacy.html" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
+    <label class="check"><input type="checkbox" class="pay-check"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a></span></label>
+    <label class="check"><input type="checkbox" class="pay-check"> <span>Мне исполнилось 18 лет</span></label>
+    <a class="btn btn-main pay-go disabled" href="https://auth.robokassa.ru/merchant/Invoice/OPJkmYaX5UyoTkK_oZaTPA" target="_blank" rel="noopener" aria-disabled="true">Перейти к оплате</a>
+    <p class="pay-note">Чтобы перейти к оплате, отметьте все пункты. Перед оплатой, пожалуйста, договоритесь со мной о времени консультации в <a href="https://t.me/guzelkunts" target="_blank" rel="noopener">Телеграм</a>.</p>
+  </div>
+</dialog>
+<script>
+  (function () {
+    const pay = document.getElementById("pay");
+    const checks = pay.querySelectorAll(".pay-check");
+    const go = pay.querySelector(".pay-go");
+    function update() {
+      const ok = [...checks].every(c => c.checked);
+      go.classList.toggle("disabled", !ok);
+      go.setAttribute("aria-disabled", ok ? "false" : "true");
+    }
+    checks.forEach(c => c.addEventListener("change", update));
+    go.addEventListener("click", e => { if (go.classList.contains("disabled")) e.preventDefault(); });
+    document.querySelectorAll(".pay-open").forEach(a => a.addEventListener("click", e => {
+      e.preventDefault();
+      checks.forEach(c => { c.checked = false; });
+      update();
+      pay.showModal();
+    }));
+    pay.querySelector(".pay-close").addEventListener("click", () => pay.close());
+    pay.addEventListener("click", e => { if (e.target === pay) pay.close(); });
+  })();
 </script>
 
 </body>
