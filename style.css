@@ -304,7 +304,41 @@ p { margin: 0 0 16px; }
   .footer-cols { grid-template-columns: 1fr 1fr; }
   .stack { margin: 0 auto; }
 }
+/* Мобильная версия: ничего не выезжает за край и не «ездит» при прокрутке */
+html, body { overflow-x: clip; }
+@media (max-width: 900px) {
+  .about-grid .video-box { position: static; top: auto; }
+  .collage::before { right: 0; }
+  .diplomas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+}
 @media (max-width: 520px) {
+  section { padding: 48px 0; }
+  .hero { padding: 28px 0 56px; }
+  .hero .lead { font-size: 17px; }
+  .hero .btns .btn { width: 100%; text-align: center; }
+  .collage { padding: 0 0 50px 20px; }
+  .facts { padding: 26px 0; }
+  .facts b { font-size: 32px; }
+  .quotes { gap: 12px; margin-top: 30px; }
+  .quote { font-size: 17px; padding: 20px 18px; }
+  .after-quotes { font-size: 17px; }
+  .about .wrap { gap: 32px; }
+  .pull { font-size: 20px; }
+  .diplomas { margin-top: 28px; }
+  .diplomas a { padding: 6px; }
+  .diplomas span { font-size: 12px; }
+  .price { font-size: 44px; }
+  .prices { margin-top: 32px; }
+  .note-box { padding: 24px 20px; }
+  .note-box p { font-size: 16px; }
+  .faq summary { font-size: 16px; padding: 18px 34px 18px 0; }
+  .ask { padding: 18px; }
+  .ask .btn { width: 100%; text-align: center; }
+  .footer { padding: 52px 0 26px; }
+  .stack { width: 210px; height: 240px; }
+  .stack img { width: 170px; height: 210px; }
+  .footer-bottom { flex-direction: column; }
+  .split-img { aspect-ratio: 4 / 3; }
   body { font-size: 16px; }
   .header .btn { padding: 8px 14px; font-size: 14px; }
   .logo { font-size: 19px; }
