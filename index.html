@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=20260915">
 </head>
 <body>
 
@@ -331,11 +331,12 @@
     <button class="pay-close" type="button" aria-label="Закрыть">×</button>
     <h3>Оплата консультации</h3>
     <p class="pay-sub">Личная консультация · 75 минут · онлайн · 6000 ₽</p>
-    <label class="check"><input type="checkbox" class="pay-check"> <span>Я ознакомлен(а) и согласен(на) с <a href="oferta.html" target="_blank" rel="noopener">договором оферты</a> и <a href="privacy.html" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
-    <label class="check"><input type="checkbox" class="pay-check"> <span>Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a></span></label>
-    <label class="check"><input type="checkbox" class="pay-check"> <span>Мне исполнилось 18 лет</span></label>
-    <a class="btn btn-main pay-go disabled" href="https://auth.robokassa.ru/merchant/Invoice/OPJkmYaX5UyoTkK_oZaTPA" target="_blank" rel="noopener" aria-disabled="true">Перейти к оплате</a>
-    <p class="pay-note">Чтобы перейти к оплате, отметьте все пункты. Перед оплатой, пожалуйста, договоритесь со мной о времени консультации в <a href="https://t.me/guzelkunts" target="_blank" rel="noopener">Телеграм</a>.</p>
+    <p style="margin:0 0 6px;font-weight:600;color:#5D0A1C">Отметьте, пожалуйста, все 3 пункта:</p>
+    <label class="check" style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid #E4DBD0;font-size:15px;line-height:1.45;cursor:pointer"><input type="checkbox" class="pay-check" style="width:22px;height:22px;margin:1px 0 0;flex-shrink:0;accent-color:#5D0A1C;cursor:pointer"> <span>1. Я ознакомлен(а) и согласен(на) с <a href="oferta.html" target="_blank" rel="noopener">договором оферты</a> и <a href="privacy.html" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
+    <label class="check" style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid #E4DBD0;font-size:15px;line-height:1.45;cursor:pointer"><input type="checkbox" class="pay-check" style="width:22px;height:22px;margin:1px 0 0;flex-shrink:0;accent-color:#5D0A1C;cursor:pointer"> <span>2. Мне исполнилось 18 лет</span></label>
+    <label class="check" style="display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid #E4DBD0;font-size:15px;line-height:1.45;cursor:pointer"><input type="checkbox" class="pay-check" style="width:22px;height:22px;margin:1px 0 0;flex-shrink:0;accent-color:#5D0A1C;cursor:pointer"> <span>3. Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a></span></label>
+    <a class="btn btn-main pay-go disabled" href="https://auth.robokassa.ru/merchant/Invoice/OPJkmYaX5UyoTkK_oZaTPA" target="_blank" rel="noopener" aria-disabled="true" style="display:block;width:100%;text-align:center;margin-top:16px">Отмечено 0 из 3</a>
+    <p class="pay-note">Перед оплатой, пожалуйста, договоритесь со мной о времени консультации в <a href="https://t.me/guzelkunts" target="_blank" rel="noopener">Телеграм</a>.</p>
   </div>
 </dialog>
 <script>
@@ -347,6 +348,8 @@
       const ok = [...checks].every(c => c.checked);
       go.classList.toggle("disabled", !ok);
       go.setAttribute("aria-disabled", ok ? "false" : "true");
+      const n = [...checks].filter(c => c.checked).length;
+      go.textContent = ok ? "Перейти к оплате" : "Отмечено " + n + " из 3";
     }
     checks.forEach(c => c.addEventListener("change", update));
     go.addEventListener("click", e => { if (go.classList.contains("disabled")) e.preventDefault(); });
