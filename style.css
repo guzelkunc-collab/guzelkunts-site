@@ -346,3 +346,5 @@ html, body { overflow-x: clip; }
   .footer-cols { grid-template-columns: 1fr; }
   .card, .card.main { padding: 28px 22px; }
 }
+
+[id] { scroll-margin-top: 84px; }
