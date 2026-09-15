@@ -307,7 +307,7 @@ p { margin: 0 0 16px; }
 /* Мобильная версия: ничего не выезжает за край и не «ездит» при прокрутке */
 html, body { overflow-x: clip; }
 @media (max-width: 900px) {
-  .about-grid .video-box { position: static; top: auto; }
+  .about-grid .video-box { position: relative; top: auto; }
   .collage::before { right: 0; }
   .diplomas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 }
