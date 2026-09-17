@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Ностальгия — прототип блокнота</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Marck+Script&family=PT+Mono&family=PT+Sans:wght@400;700&display=swap">
+<style>
+:root{
+  --wine:#8C2F2B; --navy:#2E3A5C; --mustard:#C9973E; --cream:#F6EFE1; --paper:#F8F3E8; --ink:#3B2F2A; --soft:#7A6A5E;
+  --pen:#2F4B8F; --grid:#CFDAE6; --margin:#D98A8A; --enamel:#6F8FB0;
+  --script:"Marck Script", "Segoe Script", cursive;
+  --type:"PT Mono", "Courier New", monospace;
+  --hand:"Caveat", "Segoe Print", cursive;
+  --ui:"PT Sans", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:var(--ui);color:var(--ink);font-size:16px;line-height:1.5;padding:0 16px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.18) 50%,transparent 50%) 0 0/28px 28px,
+    linear-gradient(rgba(255,255,255,.18) 50%,transparent 50%) 0 0/28px 28px,
+    #B9C9B0}
+.app{max-width:460px;margin:0 auto;padding-block:14px 110px;display:flex;flex-direction:column;gap:14px}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--paper);border-radius:0 0 16px 16px;box-shadow:0 6px 16px -10px rgba(40,30,20,.45);padding:10px 14px 10px;margin:0 -2px;display:flex;flex-direction:column;gap:8px}
+.bar-top{display:flex;justify-content:space-between;align-items:baseline}
+.brand{font-family:var(--script);font-size:26px;line-height:1;color:var(--wine)}
+.saved{font-size:12.5px;color:var(--soft);transition:opacity .3s}
+.months{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.months::-webkit-scrollbar{display:none}
+.m{flex:none;border:0;border-radius:999px;padding:6px 13px;font:14px var(--ui);background:#EAE1CF;color:var(--soft)}
+.m.on{background:var(--wine);color:#FFF6EA;font-weight:700}
+
+/* carpet cover */
+.cover{border-radius:14px;overflow:hidden;background:var(--paper);box-shadow:0 14px 26px -18px rgba(40,30,20,.6);position:relative}
+.carpet{height:92px;border-bottom:6px double var(--mustard);
+  background:
+    radial-gradient(circle at 50% 50%,var(--mustard) 0 3px,transparent 3.5px) 0 0/32px 32px,
+    repeating-linear-gradient(45deg,transparent 0 13px,rgba(201,151,62,.75) 13px 15px,transparent 15px 22.6px),
+    repeating-linear-gradient(-45deg,transparent 0 13px,rgba(201,151,62,.75) 13px 15px,transparent 15px 22.6px),
+    radial-gradient(circle at 50% 50%,var(--navy) 0 9px,transparent 10px) 16px 16px/32px 32px,
+    var(--wine)}
+.cover-body{padding:16px 18px 22px;position:relative}
+.cover .apple{position:absolute;right:10px;top:-44px;width:110px;aspect-ratio:660/640;background:url("nostalgia-apple.jpg") 48.4% 68.6%/193.9% auto no-repeat;mix-blend-mode:multiply;
+  -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 60%,transparent 100%)}
+.cover h1{margin:0;font-family:var(--script);font-weight:400;font-size:46px;line-height:1;color:var(--ink)}
+.cover .when{margin:10px 0 0;font:12.5px var(--type);color:var(--soft);letter-spacing:.04em}
+.cover .pain{margin:2px 0 0;font-family:var(--script);font-size:23px;line-height:1.2;color:var(--wine);text-wrap:balance;max-width:80%}
+.cover .theme{display:inline-block;margin-top:14px;background:#E3EAF1;border-radius:6px;padding:4px 10px;font:14px var(--type);color:var(--navy)}
+.lace{height:12px;background:radial-gradient(circle at 8px 0,transparent 7px,var(--paper) 7.5px) 0 0/16px 12px repeat-x;margin-top:-1px;filter:drop-shadow(0 3px 2px rgba(40,30,20,.12))}
+
+/* tabs */
+.tabs{display:flex;gap:8px}
+.tab{flex:1;border:0;border-radius:12px;padding:11px 8px;font:600 15px var(--ui);background:rgba(248,243,232,.7);color:var(--soft);box-shadow:inset 0 0 0 1.5px rgba(122,106,94,.25)}
+.tab[aria-selected="true"]{background:var(--paper);color:var(--ink);box-shadow:0 8px 16px -12px rgba(40,30,20,.55),inset 0 0 0 2px var(--wine)}
+.tab:focus-visible,.m:focus-visible,.btn:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+
+/* school notebook page */
+.sheet{border-radius:10px;padding:22px 16px 26px 52px;position:relative;box-shadow:0 14px 26px -18px rgba(40,30,20,.6);
+  background:
+    linear-gradient(90deg,transparent 38px,var(--margin) 38px 40px,transparent 40px),
+    linear-gradient(var(--grid) 1px,transparent 1px) 0 0/22px 22px,
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/22px 22px,
+    var(--paper)}
+.sheet h2{margin:0 0 4px;font-family:var(--script);font-weight:400;font-size:34px;line-height:1.05;color:var(--ink)}
+.sheet .hint{margin:0 0 18px;font-size:14px;color:var(--soft)}
+.q{margin:0 0 20px}
+.q label{display:block;font:15px/1.35 var(--type);color:var(--ink);margin-bottom:2px}
+textarea.ans{display:block;width:100%;border:0;outline:0;resize:none;overflow:hidden;background:transparent;
+  font:600 24px/34px var(--hand);color:var(--pen);padding:0 2px;min-height:102px;
+  background-image:repeating-linear-gradient(transparent 0 33px,rgba(47,75,143,.38) 33px 34px);background-attachment:local}
+textarea.ans::placeholder{color:rgba(47,75,143,.35)}
+textarea.ans:focus{background-color:rgba(255,255,255,.35);border-radius:4px}
+.grandma{margin-top:8px;background:#FFF9EC;border-radius:8px;padding:12px 14px;box-shadow:0 6px 12px -10px rgba(40,30,20,.5);transform:rotate(-1deg)}
+.grandma small{display:block;font:12px var(--type);color:var(--soft)}
+.grandma p{margin:2px 0 0;font-family:var(--script);font-size:22px;line-height:1.2;color:var(--wine)}
+
+/* good things */
+.day{display:grid;grid-template-columns:34px 1fr;align-items:start;min-height:40px;border-bottom:1px solid rgba(47,75,143,.3)}
+.day .n{font:13px var(--type);color:var(--soft);padding-top:10px}
+.day.today .n{color:#FFF6EA;background:var(--wine);border-radius:999px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;padding:0;margin-top:6px}
+textarea.one{border:0;outline:0;resize:none;overflow:hidden;background:transparent;width:100%;font:600 23px/32px var(--hand);color:var(--pen);padding:4px 2px;min-height:40px}
+textarea.one::placeholder{color:rgba(47,75,143,.33)}
+
+/* save */
+.keep{background:var(--paper);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 20px -16px rgba(40,30,20,.6)}
+.keep p{margin:0;font-size:14px;color:var(--soft)}
+.btn{border:0;border-radius:12px;padding:13px 14px;font:700 16px var(--ui);background:var(--navy);color:#FFF6EA}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#FFF6EA;border-radius:12px;padding:11px 16px;font-size:14px;max-width:88vw;text-align:center;z-index:20}
+.proto{font-size:12.5px;color:#2F3B2A;text-align:center;margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="app">
+  <header class="bar">
+    <div class="bar-top"><span class="brand">Ностальгия</span><span class="saved" id="saved" aria-live="polite">записи сохраняются сами</span></div>
+    <nav class="months" aria-label="Месяцы" id="months"></nav>
+  </header>
+
+  <section class="cover" aria-label="Обложка октября">
+    <div class="carpet" aria-hidden="true"></div>
+    <div class="cover-body">
+      <div class="apple" aria-hidden="true"></div>
+      <h1>Октябрь</h1>
+      <p class="when">когда накрывает:</p>
+      <p class="pain">«мне всё это надоело, хочу начать сначала»</p>
+      <span class="theme">тема месяца: знакомство с собой</span>
+    </div>
+  </section>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-know" aria-controls="page-know" aria-selected="true">Знакомство с собой</button>
+    <button class="tab" role="tab" id="tab-good" aria-controls="page-good" aria-selected="false">Что хорошего</button>
+  </div>
+
+  <section class="sheet" id="page-know" role="tabpanel" aria-labelledby="tab-know">
+    <h2>Знакомство с собой</h2>
+    <p class="hint">Нажми на строчки под вопросом и пиши, как в заметках.</p>
+    <div id="questions"></div>
+    <div class="grandma"><small>бабушка говорила:</small><p>«Утро вечера мудренее»</p></div>
+  </section>
+
+  <section class="sheet" id="page-good" role="tabpanel" aria-labelledby="tab-good" hidden>
+    <h2>Что хорошего со мной сегодня произошло</h2>
+    <p class="hint">Одна строчка каждый вечер. Даже маленькое считается.</p>
+    <div id="days"></div>
+  </section>
+
+  <section class="keep">
+    <p>Записи хранятся в этом телефоне. Раз в месяц сохраняй копию — на случай, если сменишь телефон.</p>
+    <button class="btn" id="copy">Сохранить копию моих записей</button>
+  </section>
+
+  <p class="proto">Это прототип для проверки. В нём работает только октябрь.</p>
+</div>
+
+<script>
+(function(){
+  var KEY = 'nostalgia-proto-v1', data = {};
+  try { data = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { data = {}; }
+  function persist(){ try { localStorage.setItem(KEY, JSON.stringify(data)); return true; } catch (e) { return false; } }
+
+  var savedEl = document.getElementById('saved'), savedT;
+  function markSaved(ok){ savedEl.textContent = ok ? 'сохранено ✓' : 'не удалось сохранить'; clearTimeout(savedT); savedT = setTimeout(function(){ savedEl.textContent = 'записи сохраняются сами'; }, 1800); }
+
+  var toastT;
+  function toast(msg){ var t = document.querySelector('.toast'); if (!t){ t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role','status'); document.body.appendChild(t); } t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function(){ t.hidden = true; }, 3200); }
+
+  var months = ['октябрь','ноябрь','декабрь','январь','февраль','март','апрель','май','июнь','июль','август','сентябрь'];
+  var mEl = document.getElementById('months');
+  months.forEach(function(m, i){
+    var b = document.createElement('button'); b.className = 'm' + (i === 0 ? ' on' : ''); b.textContent = m; b.id = 'month-' + i;
+    if (i) b.addEventListener('click', function(){ toast('В прототипе только октябрь. В готовом блокноте тут будет ' + m + '.'); });
+    mEl.appendChild(b);
+  });
+
+  function grow(el){ el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+  function bind(el){
+    el.value = data[el.id] || '';
+    requestAnimationFrame(function(){ grow(el); });
+    var t;
+    el.addEventListener('input', function(){ grow(el); data[el.id] = el.value; clearTimeout(t); t = setTimeout(function(){ markSaved(persist()); }, 400); });
+  }
+
+  var qs = ['Когда мне по-настоящему спокойно?','С кем я могу быть собой?','Что я делаю, когда тревожно?','Когда мне становится слишком близко?','Чего я хочу, но боюсь попросить?','За что я себя уважаю?'];
+  var qWrap = document.getElementById('questions');
+  qs.forEach(function(q, i){
+    var d = document.createElement('div'); d.className = 'q';
+    var id = 'oct-know-' + (i + 1);
+    d.innerHTML = '<label for="' + id + '">' + q + '</label><textarea class="ans" id="' + id + '" rows="3"' + (i === 0 ? ' placeholder="например: утром на кухне, пока все спят"' : '') + '></textarea>';
+    qWrap.appendChild(d); bind(d.querySelector('textarea'));
+  });
+
+  var today = new Date().getDate(), dWrap = document.getElementById('days');
+  for (var n = 1; n <= 31; n++){
+    var row = document.createElement('div'); row.className = 'day' + (n === today ? ' today' : '');
+    var id = 'oct-good-' + n;
+    row.innerHTML = '<label class="n" for="' + id + '">' + n + '</label><textarea class="one" id="' + id + '" rows="1"' + (n === today ? ' placeholder="например: бабушкины оладушки на завтрак"' : '') + '></textarea>';
+    dWrap.appendChild(row); bind(row.querySelector('textarea'));
+  }
+
+  var tabs = [document.getElementById('tab-know'), document.getElementById('tab-good')];
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ var on = t === tab; t.setAttribute('aria-selected', on); document.getElementById(t.getAttribute('aria-controls')).hidden = !on; });
+      document.querySelectorAll('#' + tab.getAttribute('aria-controls') + ' textarea').forEach(grow);
+    });
+  });
+
+  document.getElementById('copy').addEventListener('click', function(){
+    var out = ['Ностальгия · октябрь', '', 'Знакомство с собой'];
+    qs.forEach(function(q, i){ var v = data['oct-know-' + (i + 1)]; if (v) out.push('— ' + q, v, ''); });
+    out.push('Что хорошего со мной сегодня произошло');
+    for (var n = 1; n <= 31; n++){ var v = data['oct-good-' + n]; if (v) out.push(n + ': ' + v); }
+    var text = out.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast('Записи скопированы. Вставь их в Заметки или отправь себе в Telegram.'); }, function(){ toast('Не получилось скопировать. В готовом блокноте будет кнопка «скачать файл».'); });
+    } else { toast('Не получилось скопировать. В готовом блокноте будет кнопка «скачать файл».'); }
+  });
+})();
+</script>
