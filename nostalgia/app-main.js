@@ -4,7 +4,7 @@
   var app = document.getElementById('app');
   var st = {};
   try { st = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { st = {}; }
-  st.notes = st.notes || {};
+  st.notes = st.notes || {}; st.notesT = st.notesT || {};
   var PROD = !!window.NOSTALGIA_PROD;
   if (!st.name) st.name = PROD ? 'Вы' : 'Аня';
   function persist(){ try { localStorage.setItem(KEY, JSON.stringify(st)); return true; } catch (e) { return false; } }
@@ -45,7 +45,7 @@
     h += '<p class="section-title">В КОНЦЕ МЕСЯЦА</p><section class="card list">' +
       item('#/' + p + '/summary', 'Итоги: ' + mo.name.toLowerCase(), 'и главный инсайт', mo.img.summary) +
       item('#/' + p + '/days', 'Все дни: ' + mo.name.toLowerCase(), 'календарь твоих записей') + '</section>';
-    h += '<section class="card pad" style="display:flex;flex-direction:column;gap:10px"><p class="muted small" style="margin:0">' + esc(st.name) + ', твои записи хранятся на этом устройстве. Раз в месяц сохраняй копию на случай, если сменишь телефон.</p><button class="btn" id="copy">Сохранить копию моих записей</button></section>';
+    h += '<section class="card pad" style="display:flex;flex-direction:column;gap:10px"><p class="muted small" style="margin:0">' + esc(st.name) + ', твои записи хранятся на этом устройстве и в зашифрованном виде на сервере в России, поэтому они открываются на всех твоих устройствах. Прочитать их не может никто, кроме тебя. А эта кнопка сделает ещё и копию текстом.</p><button class="btn" id="copy">Сохранить копию моих записей</button></section>';
     if (!PROD) h += '<p class="preview">Предпросмотр: имя «' + esc(st.name) + '». <button id="rename">Проверить с другим именем</button></p>';
     return h;
   }
@@ -170,10 +170,10 @@
     app.querySelectorAll('textarea, .tag input').forEach(function(el){
       var k = el.getAttribute('data-key'), t;
       if (el.tagName === 'TEXTAREA') requestAnimationFrame(function(){ grow(el); });
-      el.addEventListener('input', function(){ if (el.tagName === 'TEXTAREA') grow(el); st.notes[k] = el.value; clearTimeout(t); t = setTimeout(function(){ saved(persist()); }, 400); });
+      el.addEventListener('input', function(){ if (el.tagName === 'TEXTAREA') grow(el); st.notes[k] = el.value; st.notesT[k] = Date.now(); clearTimeout(t); t = setTimeout(function(){ saved(persist()); if (window.NSync) NSync.soon(); }, 400); });
     });
     app.querySelectorAll('[data-score]').forEach(function(b){ b.addEventListener('click', function(){
-      var k = b.getAttribute('data-score'); st.notes[k] = b.getAttribute('data-v'); saved(persist());
+      var k = b.getAttribute('data-score'); st.notes[k] = b.getAttribute('data-v'); st.notesT[k] = Date.now(); saved(persist()); if (window.NSync) NSync.soon();
       b.parentNode.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); });
     }); });
     var copy = document.getElementById('copy');
@@ -190,4 +190,13 @@
 
   window.addEventListener('hashchange', render);
   render();
+  if (window.NSync){
+    var pending = false;
+    var calm = function(){ var a = document.activeElement; return !(a && (a.tagName === 'TEXTAREA' || a.tagName === 'INPUT')); };
+    var refresh = function(){ if (calm()){ pending = false; var y = window.scrollY; render(); window.scrollTo(0, y); } else pending = true; };
+    document.addEventListener('focusout', function(){ if (pending) setTimeout(refresh, 50); });
+    NSync.init({ get: function(){ return st; }, set: function(s, fromServer){ st = s; persist(); if (fromServer) refresh(); } });
+    NSync.run();
+    window.NAPP = { setSync: function(k){ st.sync = k; persist(); NSync.run(); } };
+  }
 })();

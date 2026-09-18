@@ -43,13 +43,22 @@
       var slow = setTimeout(function(){ var h = document.createElement('p'); h.className = 'gate-msg'; h.setAttribute('role', 'status'); h.textContent = 'Загружаю все 12 месяцев. В первый раз это может занять до минуты. Не закрывайте и не обновляйте страницу.'; go.parentNode.insertBefore(h, go.nextSibling); }, 5000);
       call(code).then(function(res){
         clearTimeout(slow);
-        if (res.ok){ st.code = code; persist(); saveContent(res.content); st.name ? start(res.content) : showName(); }
+        if (res.ok){ st.code = code; if (res.sync) st.sync = res.sync; persist(); saveContent(res.content); if (st.name) start(res.content); else pullThen(function(){ st.name ? start(res.content, true) : showName(); }); }
         else showCode(code, reasons[res.reason] || reasons.notfound);
       }).catch(function(){ clearTimeout(slow); showCode(code, reasons.net); });
     }
     go.addEventListener('click', submit);
     input.addEventListener('keydown', function(e){ if (e.key === 'Enter') submit(); });
     if (auto && prefill) submit(); else input.focus();
+  }
+
+  // на новом устройстве сначала пробуем забрать имя и записи с других устройств хозяйки
+  function pullThen(next){
+    if (!window.NSync || !st.sync) return next();
+    var done = false, go = function(){ if (!done){ done = true; next(); } };
+    screen('<h2>Открываю блокнот…</h2><p class="hint">Проверяю, нет ли Ваших записей с другого устройства.</p>');
+    NSync.init({ get: function(){ return st; }, set: function(s){ st = s; persist(); } });
+    NSync.run().then(go, go); setTimeout(go, 8000);
   }
 
   function showName(value){
@@ -86,7 +95,7 @@
   var cached = loadContent();
   if (st.code && st.name && cached){
     start(cached);
-    call(st.code).then(function(res){ if (res && res.ok && res.content) saveContent(res.content); }).catch(function(){});
+    call(st.code).then(function(res){ if (res && res.ok && res.content) saveContent(res.content); if (res && res.ok && res.sync && res.sync !== st.sync && window.NAPP){ NAPP.setSync(res.sync); } else if (res && res.ok && res.sync && res.sync !== st.sync){ var s = {}; try { s = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {} s.sync = res.sync; localStorage.setItem(KEY, JSON.stringify(s)); if (window.NSync) NSync.run(); } }).catch(function(){});
   } else if (st.code && cached && !st.name){
     showName();
   } else {
