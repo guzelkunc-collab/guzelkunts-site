@@ -1,0 +1,443 @@
+<title>Блокнот «Ностальгия»</title>
+<meta name="description" content="Блокнот от психолога на год: 12 месяцев, 12 тем, которые мешают жить спокойно. Каждый месяц про то, что накрывает именно в это время. Пишете прямо в телефоне.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=PT+Sans:wght@400;700&family=PT+Serif:ital@0;1&display=swap">
+<style>
+:root{
+  --bg:#EEE6D8; --paper:#F7F1E6; --ink:#2E2520; --soft:#6F5F52; --line:rgba(110,88,70,.24);
+  --accent:#7A3B32; --accent-deep:#5E2B24; --pen:#3B3A58; --shade:#E4D9C6;
+  --display:"Cormorant Garamond", Georgia, serif;
+  --serif:"PT Serif", Georgia, serif;
+  --hand:"Bad Script", "Segoe Script", cursive;
+  --ui:"PT Sans", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--serif);padding-inline:16px}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1060px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;line-height:1.02;text-wrap:balance}
+.label{font:12px/1.4 var(--ui);text-transform:uppercase;letter-spacing:.18em;color:var(--soft)}
+section{padding-block:72px}
+#year{padding-top:36px}
+section + section{border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:10px;max-width:640px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(38px,6vw,56px);font-style:italic}
+.sec-head p{margin:0;color:var(--soft)}
+.sec-head .years{font:italic 400 clamp(26px,3.2vw,32px)/1.2 var(--display);color:var(--accent);margin-top:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;border:0;border-radius:2px;background:var(--accent);color:var(--paper);font:15px var(--ui);letter-spacing:.08em;text-transform:uppercase;padding:17px 26px;text-decoration:none;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--accent-deep)}
+.btn b{font:italic 500 22px/1 var(--display);letter-spacing:0;text-transform:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* шапка */
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-block:20px;border-bottom:1px solid var(--line)}
+.top .brand{font:italic 500 26px/1 var(--display);text-decoration:none}
+.top nav{display:flex;gap:22px;font:14px var(--ui);color:var(--soft)}
+.top nav a{text-decoration:none}
+@media (max-width:640px){.top nav a:not(:last-child){display:none}}
+
+/* первый экран */
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:start;padding-block:20px 12px}
+.hero > div:first-child{padding-top:24px}
+.hero .owner{margin:0 0 10px}
+.hero .name{font:italic 500 clamp(28px,3vw,34px)/1 var(--display);color:var(--accent);margin:0 0 14px}
+.hero .owner b{display:block;text-transform:none;letter-spacing:0;font:italic 400 30px/1.15 var(--display);color:var(--ink);min-height:1.15em}
+.hero h1{font-size:clamp(38px,5.2vw,64px);font-weight:500;line-height:.98;letter-spacing:-.012em;margin:0 0 24px}
+.hero h1 em{color:var(--accent)}
+.hero .topics{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;max-width:34em}
+.hero .topics li{font:italic 500 22px/1 var(--display);color:var(--accent);background:var(--paper);border:1px solid rgba(122,59,50,.35);border-radius:999px;padding:8px 16px 9px}
+.hero .topics li.more{color:var(--soft);background:transparent;border-style:dashed;border-color:var(--line)}
+.hero .lead{margin:0 0 26px;max-width:34em;color:var(--soft)}
+.namefield{display:flex;flex-direction:column;gap:4px;margin:0 0 28px;max-width:360px}
+.namefield input{border:0;border-bottom:1px solid var(--soft);background:transparent;font:24px/1.3 var(--hand);color:var(--pen);padding:4px 2px;outline:0}
+.namefield input::placeholder{color:rgba(59,58,88,.4)}
+.buy-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin:0 0 28px}
+.buy-row.after-months{margin:36px 0 0}
+.buy-row small{font:14px var(--ui);color:var(--soft)}
+.phone-stage{position:relative;display:flex;justify-content:center;padding:0}
+.phone-stage .phone{width:min(250px,70vw)}
+.phone-stage::before{content:"";position:absolute;inset:0 6% 0 10%;background:url(img/m-jun.jpg) center/cover;opacity:.55;filter:saturate(.8);-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent);mask-image:radial-gradient(closest-side,#000 55%,transparent)}
+.phone{position:relative;width:min(300px,78vw);aspect-ratio:390/780;border:9px solid var(--ink);border-radius:40px;overflow:hidden;background:var(--bg);box-shadow:0 30px 60px -30px rgba(46,37,32,.55)}
+.phone-fig{margin:0;display:grid;justify-items:center;gap:12px;position:relative}
+.next{font:12px/1.4 var(--ui);text-transform:uppercase;letter-spacing:.18em;color:var(--soft)}
+.next b{font:italic 500 26px/1 var(--display);text-transform:none;letter-spacing:0;color:var(--accent);margin-left:6px}
+.charity{display:flex;align-items:baseline;gap:14px;margin:0;padding:14px 0 0;border-top:1px solid var(--line);max-width:34em;font:15px/1.5 var(--ui);color:var(--ink)}
+.charity.under-video{max-width:400px;margin:0;padding-top:10px;font-size:14px}
+.charity.under-video b{font-size:34px}
+.charity b{font:italic 500 40px/1 var(--display);color:var(--accent);flex:none}
+.phone img,.phone video{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:24px;padding-top:36px}}
+
+/* год по месяцам */
+.months{display:grid}
+.month{display:grid;grid-template-columns:150px 230px 1fr;gap:10px 28px;align-items:center;padding-block:20px;border-top:1px solid var(--line)}
+.month:last-child{border-bottom:1px solid var(--line)}
+.month img{width:150px;aspect-ratio:3/2;object-fit:cover;border-radius:2px}
+.month .ph{width:150px;aspect-ratio:3/2;border:1px dashed var(--line);border-radius:2px;display:grid;place-items:center;font:12px var(--ui);color:var(--soft);letter-spacing:.1em;text-transform:uppercase}
+.month h3{font-size:34px;font-style:italic}
+.month .theme{font:13px/1.45 var(--ui);color:var(--soft);margin-top:4px}
+.month q{font:italic 400 clamp(22px,2.6vw,27px)/1.25 var(--display);color:var(--accent);quotes:"«" "»"}
+@media (max-width:760px){
+  .month{grid-template-columns:110px 1fr;align-items:start}
+  .month img,.month .ph{width:110px}
+  .month q{grid-column:1 / -1}
+}
+
+/* содержание месяца */
+.toc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
+.toc div{display:grid;gap:10px;padding-block:22px;border-top:1px solid var(--line)}
+.toc h3{font-size:30px;font-style:italic;display:flex;align-items:center;gap:10px}
+.toc h3 .pill{font:italic 500 23px/1.1 var(--display);color:var(--accent);background:var(--paper);border:1px solid rgba(122,59,50,.35);border-radius:999px;padding:8px 18px 9px;white-space:nowrap}
+.toc h3 span{flex:1;border-bottom:1px dotted var(--soft)}
+.toc h3 em{font:13px var(--ui);font-style:normal;letter-spacing:.08em;color:var(--soft);white-space:nowrap}
+.toc p{margin:0;color:var(--soft);max-width:30em}
+@media (max-width:760px){.toc{grid-template-columns:1fr}}
+
+/* как выглядит */
+.screens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;align-items:start}
+.screens figure{margin:0;display:grid;gap:16px;justify-items:center;text-align:center}
+.screens .phone{width:min(250px,70vw)}
+.screens figcaption{max-width:17em}
+.screens figcaption b{display:block;font:italic 400 26px/1.1 var(--display);margin-bottom:4px}
+.screens figcaption span{color:var(--soft);font-size:15px}
+@media (max-width:860px){.screens{grid-template-columns:1fr;gap:48px}}
+
+/* как пользоваться */
+.use{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 44px}
+.use div{display:grid;justify-items:start;align-content:start;gap:12px}
+.use div h3{font:italic 500 23px/1.1 var(--display);color:var(--accent);background:var(--paper);border:1px solid rgba(122,59,50,.35);border-radius:999px;padding:9px 18px 10px;margin:0}
+.use div p{margin:0;color:var(--soft);font-size:16px}
+.honest{margin-top:44px;background:var(--paper);border:1px solid var(--line);padding:26px 28px;display:grid;gap:8px;max-width:760px}
+.honest p{margin:0}
+@media (max-width:860px){.use{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.use{grid-template-columns:1fr}}
+
+/* автор */
+.author{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:center}
+.author img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+.author blockquote{margin:14px 0 22px;font:italic 400 clamp(28px,3.6vw,38px)/1.2 var(--display);color:var(--accent)}
+.author p{margin:0 0 12px;max-width:34em}
+.author .facts{font:13px var(--ui);letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+@media (max-width:760px){.author{grid-template-columns:1fr;gap:28px}.author img{max-width:340px}}
+
+/* цена */
+.price{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.ticket{background:var(--paper);border:1px solid var(--line);padding:34px 32px;display:grid;gap:18px}
+.ticket .sum{font:italic 500 72px/1 var(--display)}
+.ticket .sum small{font:15px var(--ui);font-style:normal;color:var(--soft);letter-spacing:.06em;margin-left:8px}
+.ticket ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.ticket li{padding-left:22px;position:relative}
+.ticket li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+.steps{margin:0;padding:0;list-style:none;display:grid;gap:22px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:14px;counter-increment:s}
+.steps li::before{content:counter(s);font:italic 500 38px/1 var(--display);color:var(--accent)}
+.steps b{display:block;font:italic 500 26px/1.1 var(--display);margin-bottom:2px}
+.steps span{color:var(--soft)}
+.help{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.help-steps{gap:18px}
+.help-steps b{display:inline-block;font:italic 500 23px/1.1 var(--display);color:var(--accent);background:var(--paper);border:1px solid rgba(122,59,50,.35);border-radius:999px;padding:8px 18px 9px;margin-bottom:8px}
+.help-steps span{display:block}
+.help-steps strong{color:var(--ink);font-weight:700}
+.help-btn{margin-top:30px}
+@media (max-width:860px){.help{grid-template-columns:1fr;gap:32px}}
+.draft{font:13px var(--ui);color:var(--accent);background:rgba(122,59,50,.08);padding:8px 12px;border-radius:2px}
+@media (max-width:860px){.price{grid-template-columns:1fr;gap:40px}}
+
+/* вопросы */
+.faq{max-width:760px}
+.faq details{border-top:1px solid var(--line);padding-block:4px}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding-block:16px;font:italic 400 26px/1.2 var(--display)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:300 26px var(--ui);color:var(--soft);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 18px;color:var(--soft);max-width:36em}
+
+/* подвал */
+footer{border-top:1px solid var(--line);padding-block:36px 48px;display:grid;gap:14px;font:14px/1.6 var(--ui);color:var(--soft)}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
+/* окно оплаты */
+.pay{border:0;padding:0;background:transparent;max-width:min(520px,calc(100vw - 32px));width:100%}
+.pay::backdrop{background:rgba(46,37,32,.55)}
+.pay-box{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:30px 28px 26px;color:var(--ink)}
+.pay-box h3{font:italic 500 38px/1.05 var(--display);margin:6px 0 6px}
+.pay-sub{margin:0 0 18px;font:15px var(--ui);color:var(--soft)}
+.pay-sub b{color:var(--accent)}
+.pay-ask{margin:0 0 4px;font:600 15px var(--ui);color:var(--accent)}
+.check{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);font:15px/1.45 var(--ui);cursor:pointer}
+.check input{width:22px;height:22px;margin:1px 0 0;flex-shrink:0;accent-color:var(--accent);cursor:pointer}
+.check a{color:var(--accent)}
+.pay-go{display:flex;width:100%;margin-top:16px}
+.pay-go.disabled{background:#B9A99A;cursor:not-allowed}
+.pay-err{margin:12px 0 0;font:14px/1.5 var(--ui);color:var(--accent);background:rgba(122,59,50,.08);padding:10px 12px;border-radius:2px}
+.pay-err a{color:var(--accent)}
+.pay-note{margin:14px 0 0;font:14px/1.5 var(--ui);color:var(--soft)}
+.pay-close{position:absolute;top:10px;right:12px;border:0;background:none;font:28px/1 var(--ui);color:var(--soft);cursor:pointer;padding:4px 8px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="index.html">Гузель Кунц</a>
+    <nav>
+      <a href="#year">Месяцы</a>
+      <a href="#inside">Что внутри</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#help">Поддержка</a>
+      <a href="#buy">Купить</a>
+    </nav>
+  </header>
+
+  <!-- первый экран -->
+  <div class="hero">
+    <div>
+      <p class="name">блокнот «Ностальгия»</p>
+      <h1>Блокнот от психолога на год: 12&nbsp;месяцев, 12&nbsp;тем, которые <em>мешают жить спокойно</em></h1>
+      <ul class="topics" aria-label="Темы блокнота">
+        <li>мысли по кругу</li><li>самооценка</li><li>отдых без вины</li><li>гиперконтроль</li><li>откладывание на потом</li><li>близость без потери себя</li><li class="more">и ещё 6 тем</li>
+      </ul>
+    </div>
+    <div class="phone-stage">
+      <figure class="phone-fig">
+        <div class="phone"><video id="demo" src="img/demo-oct.mp4" poster="img/demo-oct.jpg" autoplay muted loop playsinline preload="auto" aria-label="Видео: листаем месяц в блокноте, открываем задание недели и пишем «Привет»"></video></div>
+        <figcaption class="next">скоро в блокноте <b id="next-month">октябрь</b></figcaption>
+        <p class="charity under-video"><b>2%</b> с каждой продажи блокнота в конце месяца я перевожу на благотворительность</p>
+      </figure>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- год -->
+  <section id="year">
+    <div class="sec-head">
+      <p class="label">12 месяцев · 12 тем</p>
+      <h2>Узнаёте себя?</h2>
+      <p class="years">Годы идут, а в жизни ничего не меняется?</p>
+      <p>Так бывает, когда из года в год мы крутимся в одних и тех же мыслях и чувствах. Этот блокнот для того, чтобы в этом году что-то поменялось. Одна тема в месяц и несколько минут в день, а через год Вы оглянетесь и увидите, как много сделали для себя.</p>
+    </div>
+    <div class="months">
+      <div class="month"><img src="img/m-oct.jpg" alt="" loading="lazy"><div><h3>Октябрь</h3><p class="theme">знакомство с собой</p></div><q>мне всё это надоело, хочу начать сначала</q></div>
+      <div class="month"><img src="img/m-nov.jpg" alt="" loading="lazy"><div><h3>Ноябрь</h3><p class="theme">как перестать жевать ментальную жвачку</p></div><q>постоянно прокручиваю мысли по кругу и не могу выключить это радио в голове</q></div>
+      <div class="month"><img src="img/m-dec.jpg" alt="" loading="lazy"><div><h3>Декабрь</h3><p class="theme">тёплые итоги года и цели, которые мне по силам</p></div><q>год пролетел, а я опять ничего не успела</q></div>
+      <div class="month"><img src="img/m-jan.jpg" alt="" loading="lazy"><div><h3>Январь</h3><p class="theme">мягкий старт года: где «хочу», а где «надо»</p></div><q>праздники закончились, а я уже устала от „новой жизни“</q></div>
+      <div class="month"><img src="img/m-feb.jpg" alt="" loading="lazy"><div><h3>Февраль</h3><p class="theme">близость, в которой я не теряю себя</p></div><q>то хочется быть в отношениях, то начинаю убеждать себя, что мне и одной хорошо</q></div>
+      <div class="month"><img src="img/m-mar.jpg" alt="" loading="lazy"><div><h3>Март</h3><p class="theme">опоры внутри и уважение к себе</p></div><q>вроде у меня всё нормально, но я всё равно чувствую, что недостаточно хороша</q></div>
+      <div class="month"><img src="img/m-apr.jpg" alt="" loading="lazy"><div><h3>Апрель</h3><p class="theme">перестать себя ругать и научиться себя поддерживать</p></div><q>со мной что-то не так, я опять всё делаю неправильно</q></div>
+      <div class="month"><img src="img/m-may.jpg" alt="" loading="lazy"><div><h3>Май</h3><p class="theme">отдых без чувства вины</p></div><q>отдыхать стыдно, всё время кажется, что надо быть продуктивной</q></div>
+      <div class="month"><img src="img/m-jun.jpg" alt="" loading="lazy"><div><h3>Июнь</h3><p class="theme">вернуть себе лёгкость и маленькие радости</p></div><q>лето наступило, все вокруг радуются, а мне не радостно, живу как на автомате</q></div>
+      <div class="month"><img src="img/m-jul.jpg" alt="" loading="lazy"><div><h3>Июль</h3><p class="theme">гиперконтроль: от чего он защищает и как его ослабить</p></div><q>не могу расслабиться, даже на отдыхе всё контролирую</q></div>
+      <div class="month"><img src="img/m-aug.jpg" alt="" loading="lazy"><div><h3>Август</h3><p class="theme">почему я откладываю важное и как начать без насилия над собой</p></div><q>всё откладываю: начну с понедельника, с сентября, а потом ругаю себя</q></div>
+      <div class="month"><img src="img/m-sep.jpg" alt="" loading="lazy"><div><h3>Сентябрь</h3><p class="theme">осенняя хандра и грусть перед днём рождения</p></div><q>осень, скоро день рождения, и накрыла грусть без всякой причины</q></div>
+    </div>
+    <div class="buy-row after-months">
+      <a class="btn pay-open" href="#pay">Хочу блокнот <b>1420 ₽</b></a>
+      <small>один раз и на весь год</small>
+    </div>
+  </section>
+
+  <!-- что внутри -->
+  <section id="inside">
+    <div class="sec-head">
+      <p class="label">содержание каждого месяца</p>
+      <h2>Что внутри</h2>
+    </div>
+    <div class="toc">
+      <div><h3><b class="pill">Письмо от Гузель</b><span></span><em>в начале месяца</em></h3><p>Тёплое письмо про то, откуда берётся это чувство и что с ним происходит в психике. Простыми словами, без терминов.</p></div>
+      <div><h3><b class="pill">Карта месяца</b><span></span><em>5 минут</em></h3><p>Картинка, с которой можно поговорить, как с метафорической картой. Пишете первое, что приходит в голову.</p></div>
+      <div><h3><b class="pill">Вопрос дня</b><span></span><em>2–3 минуты</em></h3><p>Каждый день новый маленький вопрос, строчка «что хорошего сегодня случилось» и поля для мыслей.</p></div>
+      <div><h3><b class="pill">Задание недели</b><span></span><em>≈15 минут</em></h3><p>Четыре техники КПТ в месяц: таблицы, проверка мыслей, маленькие эксперименты, упражнения для тела.</p></div>
+      <div><h3><b class="pill">Посиделки на кухне</b><span></span><em>по воскресеньям</em></h3><p>Три вопроса, чтобы спокойно оглянуться на неделю, как за чаем с подругой.</p></div>
+      <div><h3><b class="pill">Итоги месяца</b><span></span><em>в конце</em></h3><p>Что поняла, что получилось, главный инсайт и месяц одним словом.</p></div>
+    </div>
+  </section>
+
+  <!-- как выглядит -->
+  <section id="look">
+    <div class="sec-head">
+      <p class="label">так это выглядит в телефоне</p>
+      <h2>Пишете, как в заметках</h2>
+      <p>Печатаете обычным пальцем, а текст ложится на страницу красивым почерком. Всё сохраняется само.</p>
+    </div>
+    <div class="screens">
+      <figure><div class="phone"><img src="img/screen-cover-dec.jpg" alt="Обложка декабря в телефоне: ёлка со старинными игрушками и фраза «год пролетел, а я опять ничего не успела»" loading="lazy"></div><figcaption><b>Обложка месяца</b><span>что накрывает, тема и бабушкина фраза</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/screen-today.jpg" alt="Страница дня с вопросом «Что я помню про рыбалку?» и ответом почерком" loading="lazy"></div><figcaption><b>Страница «Сегодня»</b><span>вопрос дня и Ваш ответ почерком</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/screen-week.jpg" alt="Задание недели «Отпустить чуть-чуть»" loading="lazy"></div><figcaption><b>Задание недели</b><span>техника КПТ шаг за шагом</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- как пользоваться -->
+  <section id="how">
+    <div class="sec-head">
+      <p class="label">как пользоваться</p>
+      <h2>Просто, как открыть ссылку</h2>
+    </div>
+    <div class="use">
+      <div><h3>Ничего не нужно скачивать</h3><p>Блокнот открывается в браузере. Его можно добавить на экран «Домой», и он будет как приложение.</p></div>
+      <div><h3>Телефон, планшет, компьютер</h3><p>Один блокнот — для одного человека, на трёх его устройствах.</p></div>
+      <div><h3>Именной</h3><p>При первом входе Вы вписываете имя, и оно остаётся на обложке и страницах навсегда.</p></div>
+      <div><h3>Начать можно в любой день</h3><p>Блокнот сам открывает текущий месяц, а остальные всегда доступны.</p></div>
+      <div><h3>Пропустили день — не страшно</h3><p>Блокнот не ругается и не считает пропуски. Просто продолжаете.</p></div>
+      <div><h3>Весь год сразу</h3><p>Все 12 месяцев открыты сразу после покупки, ничего не нужно докупать.</p></div>
+    </div>
+    <div class="honest">
+      <p class="label">честно о блокноте</p>
+      <p>Один блокнот — для одного человека. Он открывается максимум на трёх устройствах, поэтому купить один и раздать ссылку подругам не получится: на четвёртом устройстве блокнот не откроется. Если хотите порадовать подругу, лучше подарите ей её собственный.</p>
+      <p>Ваши записи хранятся только на Вашем устройстве. Их не вижу даже я, никуда они не отправляются. Поэтому записи с телефона не появятся на компьютере сами. А чтобы ничего не потерять при смене телефона, в блокноте есть кнопка «Сохранить копию моих записей».</p>
+    </div>
+  </section>
+
+  <!-- автор -->
+  <section id="author">
+    <div class="author">
+      <img src="img/author.jpg" alt="Гузель Кунц на кухне с чашкой" loading="lazy">
+      <div>
+        <p class="label">кто написал блокнот</p>
+        <h2 style="font-size:clamp(40px,6vw,58px);font-style:italic">Гузель Кунц</h2>
+        <blockquote>Для девушек, которые хотят найти опору в себе, чтобы их спокойствие перестало зависеть от других людей</blockquote>
+        <p>Я психолог, магистр семейной психологии, работаю в когнитивно-поведенческой терапии. Техники в блокноте взяты из КПТ и пересказаны простыми словами, тепло, как в разговоре на кухне.</p>
+        <p class="facts">7 лет практики · 100+ клиентов · член ассоциации КПТ-терапевтов</p>
+        <p style="margin-top:18px"><a href="index.html">Подробнее обо мне и дипломы →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- цена -->
+  <section id="buy">
+    <div class="price">
+      <div class="ticket">
+        <p class="label">блокнот «Ностальгия»</p>
+        <div class="sum">1420 ₽<small>один раз</small></div>
+        <ul>
+          <li>12 месяцев, 12 тем</li>
+          <li>вопрос на каждый день и 48 заданий недели</li>
+          <li>именной блокнот для одного человека, до трёх устройств</li>
+          <li>можно подарить подруге</li>
+        </ul>
+        <a class="btn pay-open" href="#pay">Купить блокнот <b>1420 ₽</b></a>
+        <p class="charity" style="margin:0"><b>2%</b> с каждой продажи в конце месяца перевожу на благотворительность</p>
+        <p class="draft">Черновик: оплата заработает после настройки Робокассы</p>
+      </div>
+      <div>
+        <p class="label">что будет после оплаты</p>
+        <h2 style="font-size:clamp(38px,5vw,52px);font-style:italic;margin:10px 0 28px">Три шага</h2>
+        <ol class="steps">
+          <li><div><b>Оплата</b><span>Картой или по СБП. Чек придёт автоматически.</span></div></li>
+          <li><div><b>Письмо на почту</b><span>В письме кнопка «Открыть мой блокнот». Секретный код уже внутри неё, вводить ничего не надо.</span></div></li>
+          <li><div><b>Ваше имя</b><span>Вписываете имя, и блокнот Ваш. На другом устройстве достаточно ещё раз нажать ту же кнопку из письма.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- вопросы -->
+  <section id="faq">
+    <div class="sec-head"><p class="label">вопросы</p><h2>Коротко о главном</h2></div>
+    <div class="faq">
+      <details><summary>Это приложение? Что нужно установить?</summary><p>Ничего. Блокнот работает в обычном браузере телефона, планшета или компьютера. Если хочется, его можно добавить на экран «Домой», и он будет открываться как приложение.</p></details>
+      <details><summary>Можно купить один блокнот и поделиться ссылкой с подругами?</summary><p>Нет. Один блокнот — для одного человека и открывается максимум на трёх устройствах. На четвёртом он уже не откроется, даже по той же ссылке. Так мы бережём и Ваши записи, и труд, который вложен в блокнот.</p></details>
+      <details><summary>Можно ли подарить блокнот?</summary><p>Да. Просто перешлите письмо с кнопкой тому, кому дарите, пока сами в блокнот не заходили. Имя впишет новая хозяйка блокнота.</p></details>
+      <details><summary>Что будет, если я сменю телефон?</summary><p>Перед сменой нажмите в блокноте «Сохранить копию моих записей». На новом телефоне блокнот откроется по той же кнопке из письма.</p></details>
+      <details><summary>С какого месяца начинать?</summary><p>С любого. Блокнот сам откроет текущий месяц, но Вы можете листать и заполнять любые.</p></details>
+      <details><summary>Это заменяет психолога?</summary><p>Нет. Блокнот помогает лучше понимать себя и замечать свои чувства каждый день. Если Вам очень тяжело долгое время, лучше прийти на консультацию к специалисту.</p></details>
+      <details><summary>Можно ли вернуть деньги?</summary><p>Условия описаны в <a href="oferta.html">договоре оферты</a>.</p></details>
+    </div>
+  </section>
+
+  <!-- поддержка -->
+  <section id="help">
+    <div class="help">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="label">если что-то не работает</p>
+        <h2>Прежде чем писать в поддержку</h2>
+        <p>Чаще всего всё решается за минуту. Проверьте по шагам:</p>
+      </div>
+      <div>
+        <ol class="steps help-steps">
+          <li><div><b>Не пришло письмо</b><span>Проверьте почту, а потом папку «Спам».</span></div></li>
+          <li><div><b>Блокнот не открывается</b><span>Включите или выключите VPN и обновите страницу.</span></div></li>
+          <li><div><b>Всё медленно грузится</b><span>Проверьте скорость интернета.</span></div></li>
+          <li><div><b>Ничего не помогло</b><span><strong>Сделайте скриншоты</strong> всего, что происходит, и пришлите мне вместе с почтой, на которую покупали блокнот.</span></div></li>
+        </ol>
+        <a class="btn help-btn" href="https://t.me/guzelkunts" target="_blank" rel="noopener">Написать в Телеграм</a>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="pay" id="pay" aria-labelledby="pay-title">
+    <div class="pay-box">
+      <button class="pay-close" type="button" aria-label="Закрыть">×</button>
+      <p class="label">оплата</p>
+      <h3 id="pay-title">Блокнот «Ностальгия»</h3>
+      <p class="pay-sub">12 месяцев · для одного человека · до 3 устройств · <b>1420 ₽</b></p>
+      <p class="pay-ask">Отметьте, пожалуйста, все 4 пункта:</p>
+      <label class="check" for="pay-c1"><input type="checkbox" id="pay-c1" class="pay-check"><span>1. Я ознакомлен(а) и согласен(на) с <a href="oferta.html" target="_blank" rel="noopener">договором оферты</a> и <a href="privacy.html" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
+      <label class="check" for="pay-c2"><input type="checkbox" id="pay-c2" class="pay-check"><span>2. Мне исполнилось 18 лет</span></label>
+      <label class="check" for="pay-c3"><input type="checkbox" id="pay-c3" class="pay-check"><span>3. Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a></span></label>
+      <label class="check" for="pay-c4"><input type="checkbox" id="pay-c4" class="pay-check"><span>4. Понимаю, что блокнот именной, для одного человека и открывается максимум на 3 устройствах</span></label>
+      <a class="btn pay-go disabled" href="#pay" aria-disabled="true">Отмечено 0 из 4</a>
+      <p class="pay-err" id="pay-err" role="alert" hidden></p>
+      <p class="pay-note">После оплаты на почту придёт чек и письмо с кнопкой «Открыть мой блокнот».</p>
+    </div>
+  </dialog>
+
+  <footer>
+    <nav>
+      <a href="index.html">Сайт Гузель Кунц</a>
+      <a href="oferta.html">Договор оферты</a>
+      <a href="privacy.html">Политика обработки данных</a>
+      <a href="consent.html">Согласие на обработку данных</a>
+    </nav>
+    <span>© 2026 ИП Кунц Гузель Николаевна · ИНН 021400389072 · ОГРНИП 325470400084246</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var pay = document.getElementById("pay"), checks = pay.querySelectorAll(".pay-check"), go = pay.querySelector(".pay-go");
+  function update(){
+    var n = 0; checks.forEach(function(c){ if (c.checked) n++; });
+    var ok = n === checks.length;
+    go.classList.toggle("disabled", !ok);
+    go.setAttribute("aria-disabled", ok ? "false" : "true");
+    go.textContent = ok ? "Перейти к оплате" : "Отмечено " + n + " из " + checks.length;
+  }
+  checks.forEach(function(c){ c.addEventListener("change", update); });
+  var API = "https://script.google.com/macros/s/AKfycby-9wSWZwmca2R4Lxn3bSUmwm0mxClNmUPKBcSS0mSKbJKHs3d8S2d86vTlPmhjaRfp/exec";
+  var err = document.getElementById("pay-err"), busy = false;
+  go.addEventListener("click", function(e){
+    e.preventDefault();
+    if (go.classList.contains("disabled") || busy) return;
+    busy = true; err.hidden = true; go.textContent = "Перехожу к оплате…";
+    fetch(API + "?action=pay").then(function(r){ return r.json(); }).then(function(res){
+      if (!res.ok || !res.url) throw new Error("no url");
+      try { localStorage.setItem("nostalgia-order", JSON.stringify({ inv: res.inv, token: res.token })); } catch (x) {}
+      location.href = res.url;
+    }).catch(function(){
+      busy = false; update();
+      err.innerHTML = "Не получилось открыть оплату. Обновите страницу, включите или выключите VPN и попробуйте ещё раз. Если не помогло, <a href=\"https://t.me/guzelkunts\" target=\"_blank\" rel=\"noopener\">напишите мне</a>.";
+      err.hidden = false;
+    });
+  });
+  document.querySelectorAll(".pay-open").forEach(function(a){ a.addEventListener("click", function(e){
+    e.preventDefault(); checks.forEach(function(c){ c.checked = false; }); update(); pay.showModal();
+  }); });
+  pay.querySelector(".pay-close").addEventListener("click", function(){ pay.close(); });
+  pay.addEventListener("click", function(e){ if (e.target === pay) pay.close(); });
+})();
+(function(){
+  // в видео — следующий месяц, чтобы было предвкушение
+  var ids = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+  var names = ["январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"];
+  var ready = ["oct"];
+  var nm = (new Date().getMonth() + 1) % 12, id = ids[nm];
+  if (ready.indexOf(id) !== -1){
+    var v = document.getElementById("demo");
+    v.poster = "img/demo-" + id + ".jpg"; v.src = "img/demo-" + id + ".mp4";
+    document.getElementById("next-month").textContent = names[nm];
+  }
+})();
+</script>
