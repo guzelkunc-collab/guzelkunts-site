@@ -45,7 +45,7 @@
     h += '<p class="section-title">В КОНЦЕ МЕСЯЦА</p><section class="card list">' +
       item('#/' + p + '/summary', 'Итоги: ' + mo.name.toLowerCase(), 'и главный инсайт', mo.img.summary) +
       item('#/' + p + '/days', 'Все дни: ' + mo.name.toLowerCase(), 'календарь твоих записей') + '</section>';
-    h += '<section class="card pad" style="display:flex;flex-direction:column;gap:10px"><p class="muted small" style="margin:0">' + esc(st.name) + ', твои записи хранятся на этом устройстве и в зашифрованном виде на сервере в России, поэтому они открываются на всех твоих устройствах. Прочитать их не может никто, кроме тебя. А эта кнопка сделает ещё и копию текстом.</p><button class="btn" id="copy">Сохранить копию моих записей</button></section>';
+    h += '<section class="card pad" style="display:flex;flex-direction:column;gap:10px"><p class="muted small" style="margin:0">' + esc(st.name) + ', твои записи хранятся на этом устройстве и в зашифрованном виде на сервере в России, поэтому они открываются на всех твоих устройствах. Шифруются они прямо здесь, на сервер попадает только шифр. А эта кнопка сделает ещё и копию текстом.</p><button class="btn" id="copy">Сохранить копию моих записей</button></section>';
     if (!PROD) h += '<p class="preview">Предпросмотр: имя «' + esc(st.name) + '». <button id="rename">Проверить с другим именем</button></p>';
     return h;
   }
