@@ -560,3 +560,10 @@ html, body { overflow-x: clip; }
 .no-risk span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
 @media (max-width: 900px) { .no-risk { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .no-risk { grid-template-columns: 1fr; } .hero-goals li { font-size: 16px; } }
+/* Кнопка блокнота в шапке (18.09) */
+.nav-notebook { margin-left: auto; display: inline-block; padding: 9px 18px; border: 1.5px solid var(--cherry); border-radius: 999px; color: var(--cherry); background: #F1E8E4; font-size: 15px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: background .2s, color .2s; }
+.nav-notebook:hover { background: var(--cherry); color: #fff; }
+.nav-notebook + .btn { margin-left: -8px; }
+@media (max-width: 900px) { .nav-mobile + .nav-notebook { margin-left: 0; } .nav-notebook { padding: 8px 14px; font-size: 14px; } }
+@media (max-width: 520px) { .nb-long { display: none; } .header .wrap { gap: 10px; } .nav-mobile, .nav-notebook { padding: 7px 12px; font-size: 13px; } }
+@media (min-width: 901px) and (max-width: 1180px) { .nb-long { display: none; } .nav { gap: 18px; } }
