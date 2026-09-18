@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Блокнот «Ностальгия»</title>
 <meta name="description" content="Блокнот от психолога на год: 12 месяцев, 12 тем, которые мешают жить спокойно. Каждый месяц про то, что накрывает именно в это время. Пишете прямо в телефоне.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -177,6 +181,16 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
 .pay-note{margin:14px 0 0;font:14px/1.5 var(--ui);color:var(--soft)}
 .pay-close{position:absolute;top:10px;right:12px;border:0;background:none;font:28px/1 var(--ui);color:var(--soft);cursor:pointer;padding:4px 8px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* видео-инструкция */
+.guide{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:56px;align-items:center}
+.guide video{width:100%;aspect-ratio:720/1522;background:var(--shade);border:1px solid var(--line);border-radius:18px;display:block}
+.guide ol{margin:24px 0 0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:g}
+.guide li{counter-increment:g;display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:baseline}
+.guide li::before{content:counter(g);font:italic 500 30px/1 var(--display);color:var(--accent)}
+.guide li b{font:italic 500 24px/1.15 var(--display);display:block}
+.guide li span{color:var(--soft);font-size:16px}
+@media (max-width:760px){.guide{grid-template-columns:1fr;gap:32px}.guide>div{order:-1}.guide video{max-width:340px;margin-inline:auto}}
 </style>
 
 <div class="wrap">
@@ -327,6 +341,25 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
           <li><div><b>Оплата</b><span>Картой или по СБП. Чек придёт автоматически.</span></div></li>
           <li><div><b>Письмо на почту</b><span>В письме кнопка «Открыть мой блокнот». Секретный код уже внутри неё, вводить ничего не надо.</span></div></li>
           <li><div><b>Ваше имя</b><span>Вписываете имя, и блокнот Ваш. На другом устройстве достаточно ещё раз нажать ту же кнопку из письма.</span></div></li>
+        </ol>
+        <p style="margin:22px 0 0"><a href="#video">Посмотреть видео-инструкцию →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- видео-инструкция -->
+  <section id="video">
+    <div class="guide">
+      <video controls playsinline preload="none" poster="img/how-to.jpg" aria-label="Видео-инструкция: как оплатить, открыть блокнот и поставить его на рабочий экран">
+        <source src="img/how-to.mp4" type="video/mp4">
+      </video>
+      <div>
+        <p class="label">видео-инструкция · 2 минуты</p>
+        <h2 style="font-size:clamp(38px,5vw,52px);font-style:italic;margin-top:10px">Покажу всё на своём телефоне</h2>
+        <ol>
+          <li><div><b>Как оплатить</b><span>Галочки, почта, оплата картой или по СБП.</span></div></li>
+          <li><div><b>Как открыть блокнот</b><span>Письмо с кнопкой, Ваше имя, первый месяц.</span></div></li>
+          <li><div><b>Как поставить на рабочий экран</b><span>Чтобы блокнот открывался одним касанием, как приложение.</span></div></li>
         </ol>
       </div>
     </div>
