@@ -41,7 +41,8 @@ section + section{border-top:1px solid var(--line)}
 .top .brand{font:italic 500 26px/1 var(--display);text-decoration:none}
 .top nav{display:flex;gap:22px;font:14px var(--ui);color:var(--soft)}
 .top nav a{text-decoration:none}
-@media (max-width:640px){.top nav a:not(:last-child){display:none}}
+.top nav a.keep{color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:6px 12px;line-height:1.1}
+@media (max-width:640px){.top nav{gap:10px;align-items:center}.top nav a:not(:last-child):not(.keep){display:none}}
 
 /* первый экран */
 .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:start;padding-block:20px 12px}
@@ -201,6 +202,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
       <a href="#inside">Что внутри</a>
       <a href="#faq">Вопросы</a>
       <a href="#help">Поддержка</a>
+      <a class="keep" href="index.html#consult">Консультация</a>
       <a href="#buy">Купить</a>
     </nav>
   </header>
