@@ -100,14 +100,17 @@
       '<p class="hint">' + esc(k.ask) + '</p>' + scaleRow(p + 'before', k.before) + scaleRow(p + 'after', k.after) +
       '<div class="q">' + ta(p + 'notice', 's2', '', k.notice) + '</div><p class="muted small">' + esc(k.next) + '</p></section>';
   }
+  function dayNav(mo, n){
+    return '<div class="daynav"><button data-go="#/' + mo.id + '/day/' + (n - 1) + '"' + (n === 1 ? ' disabled' : '') + '>← вчера</button><button data-go="#/' + mo.id + '/days" class="mid">все дни</button><button data-go="#/' + mo.id + '/day/' + (n + 1) + '"' + (n === mo.days ? ' disabled' : '') + '>завтра →</button></div>';
+  }
   function viewDayV2(mo, n){
     n = Math.max(1, Math.min(mo.days, n)); var p = mo.id + '-d' + n + '-', f = mo.dayForm;
-    return bar(mo) + back(mo) + hero(mo.img.today) + '<section class="sheet"><div class="dayhead"><button data-go="#/' + mo.id + '/day/' + (n - 1) + '" aria-label="Предыдущий день"' + (n === 1 ? ' disabled' : '') + '>←</button><b>' + esc(st.name) + ', сегодня ' + n + ' ' + mo.gen + '</b><button data-go="#/' + mo.id + '/day/' + (n + 1) + '" aria-label="Следующий день"' + (n === mo.days ? ' disabled' : '') + '>→</button></div>' +
+    return bar(mo) + back(mo) + hero(mo.img.today) + '<section class="sheet"><h2 class="daytitle">' + esc(st.name) + ', сегодня ' + n + ' ' + mo.gen + '</h2>' + dayNav(mo, n) +
       '<div class="qday"><small>вопрос дня</small><p>' + esc(mo.daily[n - 1]) + '</p></div><p class="why"><b>Зачем я спрашиваю.</b> ' + esc(mo.dailyWhy[n - 1]) + '</p>' +
       '<div class="line l1"><span class="badge">1</span>' + ta(p + 'l1', 's1', '', f.l1) + scaleRow(p + 'sc', f.scale) + '</div>' +
       '<div class="line l2"><span class="badge">2</span>' + ta(p + 'l2', 's1', '', f.l2) + '</div>' +
       '<div class="line l3"><span class="badge">3</span>' + ta(p + 'l3', 's1', '', f.l3) + '</div>' +
-      '<p class="hint" style="margin:0">Пропустила день? Ничего страшного, блокнот не ругается. Просто продолжай.</p></section>';
+      '<p class="hint" style="margin:0 0 10px">Пропустила день? Ничего страшного, блокнот не ругается. Вернись к любому вопросу кнопками «вчера» и «все дни».</p>' + dayNav(mo, n) + '</section>';
   }
 
   function viewDay(mo, n){
