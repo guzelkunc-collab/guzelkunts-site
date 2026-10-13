@@ -38,6 +38,8 @@
     h += '<button class="today" data-go="#/' + p + '/day/' + t + '"><small>каждый день · 2–3 минуты</small><b>' + esc(st.name) + ', сегодня ' + t + ' ' + mo.gen + '</b><span>' + esc(mo.daily[t - 1]) + '</span></button>';
     h += '<p class="section-title">В НАЧАЛЕ МЕСЯЦА</p><section class="card list">' +
       item('#/' + p + '/letter', 'Письмо от Гузель', 'прочитай первым', mo.img.letter) +
+      (mo.goal ? item('#/' + p + '/goal', 'Моя цель', 'самая важная страница месяца', null) : '') +
+      (mo.kit ? item('#/' + p + '/kit', 'Копилка самопомощи', 'техника месяца: ' + mo.kit.tech.name.toLowerCase(), null) : '') +
       item('#/' + p + '/card', 'Карта месяца', 'картинка и три вопроса', mo.img.card) + '</section>';
     h += '<p class="section-title">РАЗ В НЕДЕЛЮ · ≈15 МИНУТ</p><section class="card list">' +
       mo.weeks.map(function(w, i){ return item('#/' + p + '/week/' + (i + 1), 'Неделя ' + (i + 1) + ': ' + w.short, started(p + '-w' + (i + 1) + '-') ? '✓ начато' : 'задание недели', mo.img.weeks[i]); }).join('') +
@@ -60,7 +62,56 @@
       '<p class="hint">' + esc(c.intro) + '</p>' + c.questions.map(function(q, i){ return '<div class="q">' + ta(mo.id + '-card-' + i, 's2', '', q) + '</div>'; }).join('') + '</section>';
   }
 
+
+  function scaleRow(key, label){
+    var cur = val(key), dots = '';
+    for (var k = 0; k <= 10; k++) dots += '<button class="' + (String(k) === String(cur) ? 'on' : '') + '" data-score="' + key + '" data-v="' + k + '" aria-label="' + k + ' из 10">' + k + '</button>';
+    return '<div class="scalebox"><p class="qlabel">' + esc(label) + '</p><div class="scale" role="group" aria-label="' + esc(label) + '">' + dots + '</div></div>';
+  }
+  function qit(p, j, q, cls){
+    if (q && typeof q === 'object') return scaleRow(p + q.key, q.label);
+    return '<div class="q">' + ta(p + j, cls || '', '', q) + '</div>';
+  }
+  function goalbar(mo, imp, dayN){
+    var g = (val(mo.id + '-goal-1') || '').trim();
+    if (!g && dayN > 3) return '';
+    var txt = g ? '<b>Моя цель:</b> ' + esc(g.length > 150 ? g.slice(0, 150) + '…' : g) : '<b>Моя цель пока не записана.</b> Давай поймём, что тебя сейчас беспокоит, и поставим цель: что ты хочешь, чтобы изменилось →';
+    return '<button class="goalbar" data-go="#/' + mo.id + '/goal">' + txt + '</button>' + (imp ? scaleRow(mo.id + '-' + imp, 'Насколько мне важна цель сегодня, от 0 до 10?') : '');
+  }
+  function viewGoal(mo){
+    var g = mo.goal, p = mo.id + '-goal-';
+    var h = bar(mo) + back(mo) + '<section class="sheet" style="margin-top:0"><p class="mono muted" style="margin:0 0 6px">' + esc(g.small) + '</p><h2>' + esc(g.title) + '</h2><p class="hint">' + esc(g.intro) + '</p>';
+    g.steps.forEach(function(s, i){
+      h += '<div class="step"><span class="num">' + (i + 1) + '</span><p class="qlabel">' + esc(s.label) + '</p></div>';
+      if (s.hint) h += '<p class="hint" style="margin:0 0 4px">' + esc(s.hint) + '</p>';
+      h += '<p class="example">например: ' + esc(s.example) + '</p>';
+      if (s.lines){ for (var k = 0; k < s.lines; k++) h += '<div class="q">' + ta(p + i + '-' + k, 's1', '', (k + 1) + '.') + '</div>'; }
+      else h += '<div class="q">' + ta(p + i, 's1', s.ph || '') + '</div>';
+    });
+    h += scaleRow(p + 'imp', g.importance);
+    h += '<div class="promise"><p class="qlabel">' + esc(g.promise) + '</p>' + ta(p + 'promise', 's2', g.promisePh) + '</div>';
+    h += '<div class="note"><small>записка</small><p>' + esc(g.note) + '</p></div></section>';
+    return h;
+  }
+  function viewKit(mo){
+    var k = mo.kit, t = k.tech, p = mo.id + '-kit-';
+    return bar(mo) + back(mo) + '<section class="sheet" style="margin-top:0"><p class="mono muted" style="margin:0 0 6px">' + esc(k.small) + '</p><h2>' + esc(k.title) + '</h2><p class="hint">' + esc(k.intro) + '</p>' +
+      '<div class="tech"><small>' + esc(t.label) + '</small><h3>' + esc(t.name) + '</h3><p><b>Как делать.</b> ' + esc(t.how) + '</p><p><b>Как работает.</b> ' + esc(t.why) + '</p><p><b>Когда пробовать:</b> ' + esc(t.when) + '</p></div>' +
+      '<p class="hint">' + esc(k.ask) + '</p>' + scaleRow(p + 'before', k.before) + scaleRow(p + 'after', k.after) +
+      '<div class="q">' + ta(p + 'notice', 's2', '', k.notice) + '</div><p class="muted small">' + esc(k.next) + '</p></section>';
+  }
+  function viewDayV2(mo, n){
+    n = Math.max(1, Math.min(mo.days, n)); var p = mo.id + '-d' + n + '-', f = mo.dayForm;
+    return bar(mo) + back(mo) + hero(mo.img.today) + '<section class="sheet"><div class="dayhead"><button data-go="#/' + mo.id + '/day/' + (n - 1) + '" aria-label="Предыдущий день"' + (n === 1 ? ' disabled' : '') + '>←</button><b>' + esc(st.name) + ', сегодня ' + n + ' ' + mo.gen + '</b><button data-go="#/' + mo.id + '/day/' + (n + 1) + '" aria-label="Следующий день"' + (n === mo.days ? ' disabled' : '') + '>→</button></div>' +
+      '<div class="qday"><small>вопрос дня</small><p>' + esc(mo.daily[n - 1]) + '</p></div><p class="why"><b>Зачем я спрашиваю.</b> ' + esc(mo.dailyWhy[n - 1]) + '</p>' +
+      '<div class="line l1"><span class="badge">1</span>' + ta(p + 'l1', 's1', '', f.l1) + scaleRow(p + 'sc', f.scale) + '</div>' +
+      '<div class="line l2"><span class="badge">2</span>' + ta(p + 'l2', 's1', '', f.l2) + '</div>' +
+      '<div class="line l3"><span class="badge">3</span>' + ta(p + 'l3', 's1', '', f.l3) + '</div>' +
+      '<p class="hint" style="margin:0">Пропустила день? Ничего страшного, блокнот не ругается. Просто продолжай.</p></section>';
+  }
+
   function viewDay(mo, n){
+    if (mo.v2) return viewDayV2(mo, n);
     n = Math.max(1, Math.min(mo.days, n)); var p = mo.id + '-d' + n + '-';
     return bar(mo) + back(mo) + hero(mo.img.today) + '<section class="sheet"><div class="dayhead"><button data-go="#/' + mo.id + '/day/' + (n - 1) + '" aria-label="Предыдущий день"' + (n === 1 ? ' disabled' : '') + '>‹</button><h2 style="margin:0;text-align:center;font-size:30px">' + n + ' ' + mo.gen + '</h2><button data-go="#/' + mo.id + '/day/' + (n + 1) + '" aria-label="Следующий день"' + (n === mo.days ? ' disabled' : '') + '>›</button></div>' +
       '<div class="qday"><small>вопрос дня</small><p>' + esc(mo.daily[n - 1]) + '</p></div>' + ta(p + 'q', '', 'пиши здесь…') +
@@ -74,10 +125,11 @@
   function viewWeek(mo, i){
     var w = mo.weeks[i - 1], p = mo.id + '-w' + i + '-';
     var h = bar(mo) + back(mo) + hero(mo.img.weeks[i - 1]) + '<section class="sheet"><p class="mono muted" style="margin:0 0 6px">неделя ' + i + ' · ≈15 минут</p><h2>' + nm(w.title) + '</h2><p class="hint">' + nm(w.intro) + '</p>';
+    if (w.how) h = h.replace(/(<\/h2><p class="hint">[\s\S]*?<\/p>)/, function(m){ return m + '<div class="how"><small>как это работает</small><p>' + nm(w.how) + '</p></div>'; });
     if (w.tips) h += '<p class="qlabel">' + esc(w.tipsTitle) + '</p><ul class="tips">' + w.tips.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>';
     if (w.type === 'questions'){
       if (w.tag) h += '<div class="tag"><label>дата <input data-key="' + p + 'date" value="' + esc(val(p + 'date')) + '"></label><label>погода внутри <input data-key="' + p + 'weather" value="' + esc(val(p + 'weather')) + '"></label></div>';
-      h += w.questions.map(function(q, j){ return '<div class="q">' + ta(p + j, w.small && j < w.small ? 's1' : '', '', q) + '</div>'; }).join('');
+      h += w.questions.map(function(q, j){ return qit(p, j, q, w.small && j < w.small ? 's1' : ''); }).join('');
       h += chips(w.chipsTitle, w.chips);
     } else if (w.type === 'table'){
       h += '<p class="example">например: ' + w.example.map(esc).join(' → ') + '</p>';
@@ -86,6 +138,7 @@
       }
       h += chips(w.chipsTitle, w.chips);
       if (w.final) h += '<div class="q">' + ta(p + 'final', 's2', '', w.final) + '</div>';
+      if (w.questions) h += w.questions.map(function(q, j){ return qit(p, 'x' + j, q, 's2'); }).join('');
     } else if (w.type === 'compass'){
       h += compassSvg();
       h += w.sides.map(function(s, j){
@@ -128,7 +181,7 @@
   function viewSummary(mo){
     var s = mo.summary, p = mo.id + '-sum-';
     return bar(mo) + back(mo) + hero(mo.img.summary) + '<section class="sheet"><h2>' + nm(s.title) + '</h2><p class="hint">' + esc(s.intro) + '</p>' +
-      s.questions.map(function(q, j){ return '<div class="q">' + ta(p + j, '', '', q) + '</div>'; }).join('') +
+      s.questions.map(function(q, j){ return qit(p, j, q, ''); }).join('') +
       '<div class="note"><small>самое важное</small><p>' + esc(s.insight) + '</p></div>' + ta(p + 'insight', '', '') +
       '<div class="q" style="margin-top:18px">' + ta(p + 'word', 's1', '', s.word) + '</div></section>';
   }
@@ -136,7 +189,7 @@
   function viewDays(mo){
     var t = todayNum(mo), cells = '';
     for (var n = 1; n <= mo.days; n++){
-      var filled = ['q', 'good', 'margin'].some(function(x){ return val(mo.id + '-d' + n + '-' + x); });
+      var filled = ['q', 'good', 'margin', 'l1', 'l2', 'l3'].some(function(x){ return val(mo.id + '-d' + n + '-' + x); });
       cells += '<button class="' + (filled ? 'filled ' : '') + (n === t ? 'now' : '') + '" data-go="#/' + mo.id + '/day/' + n + '" aria-label="' + n + ' ' + mo.gen + (filled ? ', есть запись' : '') + '">' + n + '</button>';
     }
     return bar(mo) + back(mo) + '<section class="sheet" style="margin-top:0"><h2>Все дни: ' + esc(mo.name.toLowerCase()) + '</h2><p class="hint">Точка — в этот день есть запись. Нажми на число, чтобы открыть день.</p><div class="cal">' + cells + '</div></section>';
@@ -149,12 +202,15 @@
     var h;
     if (r[1] === 'letter') h = viewLetter(mo);
     else if (r[1] === 'card') h = viewCard(mo);
+    else if (r[1] === 'goal' && mo.goal) h = viewGoal(mo);
+    else if (r[1] === 'kit' && mo.kit) h = viewKit(mo);
     else if (r[1] === 'day') h = viewDay(mo, num(r[2], mo.days));
     else if (r[1] === 'week') h = viewWeek(mo, num(r[2], 4));
     else if (r[1] === 'kitchen') h = viewKitchen(mo, num(r[2], 4));
     else if (r[1] === 'summary') h = viewSummary(mo);
     else if (r[1] === 'days') h = viewDays(mo);
     else h = viewHome(mo);
+    if (mo.v2 && ['day', 'week', 'kitchen', 'summary'].indexOf(r[1]) >= 0){ var imp = r[1] === 'week' ? 'w' + num(r[2], 4) + '-imp' : r[1] === 'kitchen' ? 'k' + num(r[2], 4) + '-imp' : null; h = h.replace(/(<section class="sheet"[^>]*>)/, function(m){ return m + goalbar(mo, imp, r[1] === 'day' ? num(r[2], mo.days) : 0); }); }
     app.innerHTML = h;
     wire();
     window.scrollTo(0, 0);
