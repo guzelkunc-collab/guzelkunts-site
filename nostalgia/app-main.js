@@ -35,7 +35,7 @@
       '<h1>' + esc(mo.name) + '</h1><p class="when">когда накрывает:</p><p class="pain">' + esc(mo.pain) + '</p>' +
       '<p style="margin:14px 0 0"><span class="chip">тема месяца · ' + esc(mo.theme) + '</span></p>' +
       '<p class="when" style="margin-top:14px">бабушка говорила</p><p class="grandma" style="margin:0">' + esc(mo.grandma) + '</p></div></section>';
-    h += '<button class="today" data-go="#/' + p + '/day/' + t + '"><small>каждый день · 2–3 минуты</small><b>' + esc(st.name) + ', сегодня ' + t + ' ' + mo.gen + '</b><span>' + esc(mo.daily[t - 1]) + '</span></button>';
+    h += '<button class="today" data-go="#/' + p + '/day/' + t + '"><small>каждый день · 2–3 минуты</small><b>' + esc(st.name) + ', сегодня ' + t + ' ' + mo.gen + '</b><span>' + esc(mo.daily[t - 1]) + '</span><em class="tgo">Нажми, чтобы открыть и ответить <i aria-hidden="true">›</i></em></button>';
     h += '<p class="section-title">В НАЧАЛЕ МЕСЯЦА</p><section class="card list">' +
       item('#/' + p + '/letter', 'Письмо от Гузель', 'прочитай первым', mo.img.letter) +
       (mo.goal ? item('#/' + p + '/goal', 'Моя цель', 'самая важная страница месяца', null) : '') +
