@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Блокнот «Ностальгия»</title>
-<meta name="description" content="Блокнот от психолога на год: 12 месяцев, 12 тем, которые мешают жить спокойно. Каждый месяц про то, что накрывает именно в это время. Пишете прямо в телефоне.">
+<meta name="description" content="Блокнот от психолога на год: 12 месяцев, 12 тем. Каждый месяц идёт по пути: заметить, прожить, решить, как хочу по-другому, и сделать маленький шаг. Пишете прямо в телефоне.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=PT+Sans:wght@400;700&family=PT+Serif:ital@0;1&display=swap">
@@ -91,6 +91,16 @@ section + section{border-top:1px solid var(--line)}
   .month q{grid-column:1 / -1}
 }
 
+/* путь месяца */
+.path{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.path li{background:var(--paper);border:1px solid var(--line);padding:22px 20px;display:grid;gap:6px;align-content:start}
+.path li b{font:12px/1.4 var(--ui);text-transform:uppercase;letter-spacing:.16em;color:var(--soft);font-weight:400}
+.path li h3{font-size:30px;font-style:italic;color:var(--accent)}
+.path li p{margin:0;color:var(--soft);font-size:16px}
+.path-note{margin:24px 0 0;max-width:640px;font:15px/1.55 var(--ui);color:var(--soft)}
+@media (max-width:960px){.path{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.path{grid-template-columns:1fr}}
+
 /* содержание месяца */
 .toc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
 .toc div{display:grid;gap:10px;padding-block:22px;border-top:1px solid var(--line)}
@@ -99,7 +109,7 @@ section + section{border-top:1px solid var(--line)}
 .toc h3 span{flex:1;border-bottom:1px dotted var(--soft)}
 .toc h3 em{font:13px var(--ui);font-style:normal;letter-spacing:.08em;color:var(--soft);white-space:nowrap}
 .toc p{margin:0;color:var(--soft);max-width:30em}
-@media (max-width:760px){.toc{grid-template-columns:1fr}}
+@media (max-width:760px){.toc{grid-template-columns:1fr}.toc h3{flex-wrap:wrap;gap:6px 10px}.toc h3 span{display:none}.toc h3 em{white-space:normal}}
 
 /* как выглядит */
 .screens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;align-items:start}
@@ -199,6 +209,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
     <a class="brand" href="index.html">Гузель Кунц</a>
     <nav>
       <a href="#year">Месяцы</a>
+      <a href="#path">Путь месяца</a>
       <a href="#inside">Что внутри</a>
       <a href="#faq">Вопросы</a>
       <a href="#help">Поддержка</a>
@@ -218,8 +229,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
     </div>
     <div class="phone-stage">
       <figure class="phone-fig">
-        <div class="phone"><video id="demo" src="img/demo-oct.mp4" poster="img/demo-oct.jpg" autoplay muted loop playsinline preload="auto" aria-label="Видео: листаем месяц в блокноте, открываем задание недели и пишем «Привет»"></video></div>
-        <figcaption class="next">скоро в блокноте <b id="next-month">октябрь</b></figcaption>
+        <div class="phone"><video id="demo" src="img/demo-nov.mp4" poster="img/demo-nov.jpg" autoplay muted loop playsinline preload="auto" aria-label="Видео: листаем ноябрь в блокноте, смотрим «Мою цель» и «Копилку самопомощи», открываем задание недели и пишем «Привет»"></video></div>
+        <figcaption class="next">в видео <b id="next-month">ноябрь</b></figcaption>
         <p class="charity under-video"><b>2%</b> с каждой продажи блокнота в конце месяца я перевожу на благотворительность</p>
       </figure>
     </div>
@@ -234,9 +245,10 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
       <h2>Узнаёте себя?</h2>
       <p class="years">Годы идут, а в жизни ничего не меняется?</p>
       <p>Так бывает, когда из года в год мы крутимся в одних и тех же мыслях и чувствах. Этот блокнот для того, чтобы в этом году что-то поменялось. Одна тема в месяц и несколько минут в день, а через год Вы оглянетесь и увидите, как много сделали для себя.</p>
+      <p>Каждый месяц идёт по одному пути: сначала я замечаю, что со мной происходит, потом проживаю это понемногу, потом решаю, как хочу по-другому, и делаю маленький шаг. Так мысли не ходят по кругу, а превращаются в действие.</p>
     </div>
     <div class="months">
-      <div class="month"><img src="img/m-oct.jpg" alt="" loading="lazy"><div><h3>Октябрь</h3><p class="theme">знакомство с собой</p></div><q>мне всё это надоело, хочу начать сначала</q></div>
+      <div class="month"><img src="img/m-oct.jpg" alt="" loading="lazy"><div><h3>Октябрь</h3><p class="theme">знакомство с собой · прежний формат, без цели и копилки</p></div><q>мне всё это надоело, хочу начать сначала</q></div>
       <div class="month"><img src="img/m-nov.jpg" alt="" loading="lazy"><div><h3>Ноябрь</h3><p class="theme">как перестать жевать ментальную жвачку</p></div><q>постоянно прокручиваю мысли по кругу и не могу выключить это радио в голове</q></div>
       <div class="month"><img src="img/m-dec.jpg" alt="" loading="lazy"><div><h3>Декабрь</h3><p class="theme">тёплые итоги года и цели, которые мне по силам</p></div><q>год пролетел, а я опять ничего не успела</q></div>
       <div class="month"><img src="img/m-jan.jpg" alt="" loading="lazy"><div><h3>Январь</h3><p class="theme">мягкий старт года: где «хочу», а где «надо»</p></div><q>праздники закончились, а я уже устала от „новой жизни“</q></div>
@@ -245,14 +257,30 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
       <div class="month"><img src="img/m-apr.jpg" alt="" loading="lazy"><div><h3>Апрель</h3><p class="theme">перестать себя ругать и научиться себя поддерживать</p></div><q>со мной что-то не так, я опять всё делаю неправильно</q></div>
       <div class="month"><img src="img/m-may.jpg" alt="" loading="lazy"><div><h3>Май</h3><p class="theme">отдых без чувства вины</p></div><q>отдыхать стыдно, всё время кажется, что надо быть продуктивной</q></div>
       <div class="month"><img src="img/m-jun.jpg" alt="" loading="lazy"><div><h3>Июнь</h3><p class="theme">вернуть себе лёгкость и маленькие радости</p></div><q>лето наступило, все вокруг радуются, а мне не радостно, живу как на автомате</q></div>
-      <div class="month"><img src="img/m-jul.jpg" alt="" loading="lazy"><div><h3>Июль</h3><p class="theme">гиперконтроль: от чего он защищает и как его ослабить</p></div><q>не могу расслабиться, даже на отдыхе всё контролирую</q></div>
-      <div class="month"><img src="img/m-aug.jpg" alt="" loading="lazy"><div><h3>Август</h3><p class="theme">почему я откладываю важное и как начать без насилия над собой</p></div><q>всё откладываю: начну с понедельника, с сентября, а потом ругаю себя</q></div>
-      <div class="month"><img src="img/m-sep.jpg" alt="" loading="lazy"><div><h3>Сентябрь</h3><p class="theme">осенняя хандра и грусть перед днём рождения</p></div><q>осень, скоро день рождения, и накрыла грусть без всякой причины</q></div>
+      <div class="month"><img src="img/m-jul.jpg" alt="" loading="lazy"><div><h3>Июль</h3><p class="theme">гиперконтроль: от чего он меня защищает и как его ослабить</p></div><q>не могу расслабиться, даже на отдыхе всё контролирую</q></div>
+      <div class="month"><img src="img/m-aug.jpg" alt="" loading="lazy"><div><h3>Август</h3><p class="theme">почему я откладываю важное и как начать без насилия над собой</p></div><q>всё откладываю: начну с понедельника, с сентября, с Нового года, а потом ругаю себя</q></div>
+      <div class="month"><img src="img/m-sep.jpg" alt="" loading="lazy"><div><h3>Сентябрь</h3><p class="theme">осенняя хандра и грусть перед днём рождения: откуда они берутся и как себя поддержать</p></div><q>осень, скоро день рождения, и накрыла грусть без всякой причины</q></div>
     </div>
     <div class="buy-row after-months">
       <a class="btn pay-open" href="#pay">Хочу блокнот <b>1420 ₽</b></a>
       <small>один раз и на весь год</small>
     </div>
+  </section>
+
+  <!-- путь месяца -->
+  <section id="path">
+    <div class="sec-head">
+      <p class="label">как устроен каждый месяц</p>
+      <h2>Четыре недели, один путь</h2>
+      <p>Блокнот не оставляет Вас наедине с тяжёлыми мыслями. Каждая неделя делает свой шаг, и в конце месяца Вы не только понимаете себя, но и что-то делаете иначе.</p>
+    </div>
+    <ol class="path">
+      <li><b>Неделя 1</b><h3>Замечаю</h3><p>Понять, что со мной происходит. Отличить факт от своей интерпретации: мысль ещё не факт.</p></li>
+      <li><b>Неделя 2</b><h3>Проживаю</h3><p>Дать чувствам место, понемногу, чтобы не увязнуть в них.</p></li>
+      <li><b>Неделя 3</b><h3>Хочу по-другому</h3><p>Какая я, когда спокойна: как буду себя вести и что чувствовать.</p></li>
+      <li><b>Неделя 4</b><h3>Делаю</h3><p>Маленькие шаги, которые приближают меня к этому состоянию.</p></li>
+    </ol>
+    <p class="path-note">Так устроены месяцы с ноября по сентябрь. Октябрь, первый месяц блокнота, написан в прежнем формате: это спокойное знакомство с собой, без цели месяца и без копилки. Он идёт вместе с блокнотом.</p>
   </section>
 
   <!-- что внутри -->
@@ -263,11 +291,13 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
     </div>
     <div class="toc">
       <div><h3><b class="pill">Письмо от Гузель</b><span></span><em>в начале месяца</em></h3><p>Тёплое письмо про то, откуда берётся это чувство и что с ним происходит в психике. Простыми словами, без терминов.</p></div>
+      <div><h3><b class="pill">Моя цель</b><span></span><em>10 минут, в начале</em></h3><p>Что мне не нравится, как я хочу по-другому, какие три маленьких действия в этом помогут и как изменится моя жизнь. Цель стоит строкой сверху на страницах месяца, чтобы не терять её из виду.</p></div>
       <div><h3><b class="pill">Карта месяца</b><span></span><em>5 минут</em></h3><p>Картинка, с которой можно поговорить, как с метафорической картой. Пишете первое, что приходит в голову.</p></div>
-      <div><h3><b class="pill">Вопрос дня</b><span></span><em>2–3 минуты</em></h3><p>Каждый день новый маленький вопрос, строчка «что хорошего сегодня случилось» и поля для мыслей.</p></div>
-      <div><h3><b class="pill">Задание недели</b><span></span><em>≈15 минут</em></h3><p>Четыре техники КПТ в месяц: таблицы, проверка мыслей, маленькие эксперименты, упражнения для тела.</p></div>
-      <div><h3><b class="pill">Посиделки на кухне</b><span></span><em>по воскресеньям</em></h3><p>Три вопроса, чтобы спокойно оглянуться на неделю, как за чаем с подругой.</p></div>
-      <div><h3><b class="pill">Итоги месяца</b><span></span><em>в конце</em></h3><p>Что поняла, что получилось, главный инсайт и месяц одним словом.</p></div>
+      <div><h3><b class="pill">Вопрос дня</b><span></span><em>2–3 минуты</em></h3><p>Один вопрос на день и три строки: что я об этом думаю, как хочу по-другому, что могу сделать, чтобы приблизиться к цели. Под вопросом пояснение, зачем я его задаю. До и после можно отметить своё состояние от 0 до 10.</p></div>
+      <div><h3><b class="pill">Задание недели</b><span></span><em>≈15 минут</em></h3><p>Четыре техники КПТ в месяц, по одной на каждый этап пути. К каждой есть «Как это работает» и «Зачем это делать»: что происходит в психике и почему это помогает.</p></div>
+      <div><h3><b class="pill">Копилка самопомощи</b><span></span><em>по технике в месяц</em></h3><p>Одно простое упражнение на месяц: дыхание, заземление, холодная вода. За год у Вас соберётся своя копилка из 12 способов успокоиться, когда накрывает.</p></div>
+      <div><h3><b class="pill">Посиделки на кухне</b><span></span><em>по воскресеньям</em></h3><p>Три вопроса, чтобы спокойно оглянуться на неделю, как за чаем с подругой, и увидеть, как она легла на цель месяца.</p></div>
+      <div><h3><b class="pill">Итоги месяца</b><span></span><em>в конце</em></h3><p>Что поняла, что получилось, как изменилось моё состояние от 0 до 10 и главный инсайт месяца.</p></div>
     </div>
   </section>
 
@@ -279,9 +309,9 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
       <p>Печатаете обычным пальцем, а текст ложится на страницу красивым почерком. Всё сохраняется само.</p>
     </div>
     <div class="screens">
-      <figure><div class="phone"><img src="img/screen-cover-dec.jpg" alt="Обложка декабря в телефоне: ёлка со старинными игрушками и фраза «год пролетел, а я опять ничего не успела»" loading="lazy"></div><figcaption><b>Обложка месяца</b><span>что накрывает, тема и бабушкина фраза</span></figcaption></figure>
-      <figure><div class="phone"><img src="img/screen-today.jpg" alt="Страница дня с вопросом «Что я помню про рыбалку?» и ответом почерком" loading="lazy"></div><figcaption><b>Страница «Сегодня»</b><span>вопрос дня и Ваш ответ почерком</span></figcaption></figure>
-      <figure><div class="phone"><img src="img/screen-week.jpg" alt="Задание недели «Отпустить чуть-чуть»" loading="lazy"></div><figcaption><b>Задание недели</b><span>техника КПТ шаг за шагом</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/screen-goal-nov.jpg" alt="Страница «Моя цель» в блокноте: что мне не нравится, как я хочу по-другому" loading="lazy"></div><figcaption><b>Моя цель</b><span>с неё начинается каждый месяц</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/screen-today-nov.jpg" alt="Страница дня: вопрос «Какая мысль сегодня звучала в голове чаще всего?» и три ответа почерком" loading="lazy"></div><figcaption><b>Страница «Сегодня»</b><span>вопрос дня и три строки Вашим почерком</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/screen-week-nov.jpg" alt="Задание первой недели ноября «Замечаю: мысль ещё не факт»" loading="lazy"></div><figcaption><b>Задание недели</b><span>техника КПТ шаг за шагом</span></figcaption></figure>
     </div>
   </section>
 
@@ -330,7 +360,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
         <div class="sum">1420 ₽<small>один раз</small></div>
         <ul>
           <li>12 месяцев, 12 тем</li>
-          <li>вопрос на каждый день и 48 заданий недели</li>
+          <li>цель на каждый месяц и вопрос дня с тремя строками</li>
+          <li>48 заданий недели и 12 техник самопомощи</li>
           <li>именной блокнот для одного человека, до трёх устройств</li>
           <li>доступ минимум 12 месяцев с первого входа</li>
           <li>можно подарить подруге</li>
@@ -378,7 +409,9 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
       <details><summary>Можно ли подарить блокнот?</summary><p>Да. Просто перешлите письмо с кнопкой тому, кому дарите, пока сами в блокнот не заходили. Имя впишет новая хозяйка блокнота.</p></details>
       <details><summary>На какой срок открывается блокнот?</summary><p>Минимум на 12 месяцев с первого входа: все 12 месяцев блокнота открыты сразу. Синхронизация записей между устройствами работает на тот же срок, дальше — пока работает проект. Если что-то изменится, я заранее напишу, чтобы Вы успели сохранить копию записей кнопкой «Сохранить копию моих записей».</p></details>
       <details><summary>Что будет, если я сменю телефон?</summary><p>Ничего не потеряется: записи хранятся в зашифрованном виде на сервере. На новом телефоне откройте блокнот той же кнопкой из письма, и записи подтянутся. Если все три устройства уже заняты, напишите мне, я помогу.</p></details>
-      <details><summary>С какого месяца начинать?</summary><p>С любого. Блокнот сам откроет текущий месяц, но Вы можете листать и заполнять любые.</p></details>
+      <details><summary>С какого месяца начинать?</summary><p>С любого. Блокнот сам откроет текущий месяц, но Вы можете листать и заполнять любые. Если хочется пройти весь путь с целью и копилкой, начинайте с ноября.</p></details>
+      <details><summary>А если станет тяжело, пока я пишу?</summary><p>В каждом месяце есть техника самопомощи, к которой можно вернуться в любой момент. Блокнот про повседневные переживания: мысли по кругу, самооценку, усталость, откладывание. Он не для острых кризисов. Если Вам очень тяжело или это тянется давно, лучше прийти на консультацию к специалисту.</p></details>
+      <details><summary>Чем это отличается от обычного дневника?</summary><p>В дневнике можно годами описывать одно и то же. Здесь у каждого месяца есть путь: заметить, прожить, решить, как хочу по-другому, сделать шаг. И есть цель, к которой всё возвращается.</p></details>
       <details><summary>Это заменяет психолога?</summary><p>Нет. Блокнот помогает лучше понимать себя и замечать свои чувства каждый день. Если Вам очень тяжело долгое время, лучше прийти на консультацию к специалисту.</p></details>
       <details><summary>Можно ли вернуть деньги?</summary><p>Условия описаны в <a href="oferta.html">договоре оферты</a>.</p></details>
     </div>
@@ -467,17 +500,5 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}
   }); });
   pay.querySelector(".pay-close").addEventListener("click", function(){ pay.close(); });
   pay.addEventListener("click", function(e){ if (e.target === pay) pay.close(); });
-})();
-(function(){
-  // в видео — следующий месяц, чтобы было предвкушение
-  var ids = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
-  var names = ["январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"];
-  var ready = ["oct"];
-  var nm = (new Date().getMonth() + 1) % 12, id = ids[nm];
-  if (ready.indexOf(id) !== -1){
-    var v = document.getElementById("demo");
-    v.poster = "img/demo-" + id + ".jpg"; v.src = "img/demo-" + id + ".mp4";
-    document.getElementById("next-month").textContent = names[nm];
-  }
 })();
 </script>
