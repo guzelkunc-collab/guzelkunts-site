@@ -42,7 +42,7 @@
       (mo.kit ? item('#/' + p + '/kit', 'Копилка самопомощи', 'техника месяца: ' + mo.kit.tech.name.toLowerCase(), null) : '') +
       item('#/' + p + '/card', 'Карта месяца', 'картинка и три вопроса', mo.img.card) + '</section>';
     h += '<p class="section-title">РАЗ В НЕДЕЛЮ · ≈15 МИНУТ</p><section class="card list">' +
-      mo.weeks.map(function(w, i){ return item('#/' + p + '/week/' + (i + 1), 'Неделя ' + (i + 1) + ': ' + w.short, started(p + '-w' + (i + 1) + '-') ? '✓ начато' : 'задание недели', mo.img.weeks[i]); }).join('') +
+      mo.weeks.map(function(w, i){ return item('#/' + p + '/week/' + (i + 1), 'Неделя ' + (i + 1) + ': ' + w.short, started(p + '-w' + (i + 1) + '-') ? '✓ начато' : 'задание недели', mo.img.weeks[i]) + (p === 'dec' && i === 2 ? item('#/dec/obstacles/0', 'Хочу, но боюсь', started('dec-obstacles-v1-') ? '✓ начато · мысли, страхи и проверка на опыте' : 'перед целями и шагами · практика на неделю', null) : ''); }).join('') +
       item('#/' + p + '/kitchen', 'Посиделки на кухне', 'по воскресеньям, три вопроса', mo.img.kitchen) + '</section>';
     h += '<p class="section-title">В КОНЦЕ МЕСЯЦА</p><section class="card list">' +
       item('#/' + p + '/summary', 'Итоги: ' + mo.name.toLowerCase(), 'и главный инсайт', mo.img.summary) +
@@ -156,7 +156,50 @@
       h += '<div class="zone not"><p class="qlabel">Снаружи · не моё, отпускаю</p><p class="ex">например: ' + esc(w.notMine) + '</p>' + ta(p + 'not', '', 'что можно отпустить') + '</div>';
       h += '<div class="q">' + ta(p + 'final', 's2', '', w.final) + '</div>';
     }
+    if (mo.id === 'dec' && i === 3) h += '<div class="note"><small>перед первым шагом</small><p>Что происходит, когда ты собираешься приблизиться к желанию? В следующем разделе разберём мысли и страхи, которые тебя останавливают.</p><button class="btn" data-go="#/dec/obstacles/0">Хочу, но боюсь →</button></div>';
+    if (mo.id === 'dec' && i === 4){
+      var reply = val(obstacleKey(2,'reply')), nextStep = val(obstacleKey(3,'next'));
+      h += '<div class="note"><small>если снова станет страшно</small><p>' + (reply ? esc(reply) : 'Можно вернуться к своему страху и выбрать, как себя поддержать.') + '</p>' + (nextStep ? '<p><b>Мой следующий шаг:</b> ' + esc(nextStep) + '</p>' : '') + '<button class="btn" data-go="#/dec/obstacles/0">К разбору мыслей и страхов</button></div>';
+    }
     if (w.note) h += '<div class="note"><small>записка</small><p>' + esc(w.note) + '</p></div>';
+    return h + '</section>';
+  }
+
+  // December supplement. Existing week/day note keys stay unchanged.
+  var obstaclePages = [
+    {title:'Что меня останавливает?', intro:'Выбери одно желание из карты. Представь, что собираешься сделать первый шаг. Давай посмотрим, что происходит в этот момент.', example:'Например: хочу вести блог. Собираюсь записать видео. Думаю: «Знакомые будут смеяться». Чувствую страх и снова начинаю выбирать оборудование.', fields:[
+      ['wish','Какое желание я выбираю?'],['step','Какой конкретный шаг я откладываю?'],['situation','Что происходит перед тем, как я решаю «потом»?'],['thought','Какая мысль появляется? Запиши, как она звучит в голове.'],['emotion','Что я чувствую? Где замечаю это в теле?'],['instead','Что я делаю вместо шага? Что это даёт сразу и что происходит потом?']], note:'Если мешают деньги, время, здоровье или отсутствие помощи, назови это отдельно. Здесь может понадобиться поддержка или изменение условий.'},
+    {title:'Давай поговорим, страх', intro:'Положим пугающую мысль перед собой, как карточку на столе. Давай выслушаем её и посмотрим, на что она опирается. Отвечай так, чтобы самой себе поверить.', example:'Например: «Я не знаю заранее, как отреагируют знакомые. Кто-то может не одобрить. Я могу выбирать, чем делиться, и постепенно учиться снимать».', fields:[
+      ['prediction','Чего я боюсь? Что именно, по моему прогнозу, случится?'],['for','Какие факты говорят, что так может произойти?'],['against','Какие факты показывают, что возможен другой исход?'],['support','Если неприятность всё же случится, как я смогу себе помочь?'],['friend','Что я сказала бы близкому человеку в такой ситуации?'],['reply','Как звучит более точная и поддерживающая мысль, которой я действительно верю?']], note:'Напряжение может уменьшиться, остаться прежним или измениться не сразу. Это наблюдение, а не оценка правильности ответа.'},
+    {title:'Проверю на опыте', intro:'Теперь выбери маленькую, посильную проверку своего предположения. Что можно попробовать, чтобы узнать, как бывает на самом деле?', example:'Например: «Если покажу короткую запись выбранному человеку, он скажет, что слушать невозможно». Можно заранее договориться с ним, показать запись и спросить, понятна ли мысль и слышно ли речь.', fields:[
+      ['prediction','Какой конкретный прогноз я хочу проверить?'],['belief-before','Насколько я верю этому прогнозу до пробы: 0–100%?'],['experiment','Какой небольшой опыт поможет это проверить?'],['when','Когда, где и с чьей поддержкой я попробую?'],['facts','Что произошло на самом деле? Сначала запиши наблюдаемые факты.'],['learned','Что подтвердилось, что нет? Что я узнала и что ещё неизвестно?'],['belief-after','Насколько я верю прежнему прогнозу теперь: 0–100%?'],['next','Какой следующий шаг я выбираю?']], note:'Одна проба даёт информацию об этой ситуации. Можно идти медленнее и выбирать посильную нагрузку. Полностью избавляться от страха перед действием не требуется.'}
+  ];
+  function obstacleKey(part, field){ return 'dec-obstacles-v1-p' + part + '-' + field; }
+  function obstacleNav(part){
+    return '<nav class="daynav" aria-label="Части упражнения">' + ['На неделю','Замечаю','Разбираю','Пробую'].map(function(label,i){ return '<button data-go="#/dec/obstacles/' + i + '"' + (part === i ? ' aria-current="page" style="font-weight:bold;color:var(--accent)"' : '') + '>' + label + '</button>'; }).join('') + '</nav>';
+  }
+  function obstacleField(part, field, label){ return '<div class="q">' + ta(obstacleKey(part,field),'s2','',label) + '</div>'; }
+  function viewObstacles(mo, part){
+    var h = bar(mo) + back(mo) + '<section class="sheet" style="margin-top:0"><p class="mono muted" style="margin:0 0 6px">между желанием и первым шагом · практика на неделю</p><h2>Хочу, но боюсь</h2>' + obstacleNav(part);
+    if (part === 0){
+      h += '<p class="hint">Ты уже записала, чего хочешь. А теперь представь, что начинаешь. Какая мысль появляется первой? Здесь можно спокойно всё записать, разобраться со своим страхом и выбрать, что попробовать дальше.</p>';
+      h += '<div class="how"><small>как это работает</small><p>Мысль может звучать убедительно, но её можно проверить. Сначала заметим ситуацию, мысль и эмоцию. Потом посмотрим на факты и найдём честный ответ себе. После этого выберем небольшой опыт и запишем, что произошло.</p></div>';
+      h += '<p class="qlabel">Одна большая работа — по маленькой части в день</p><ol class="tips">' + ['Выбери желание и назови откладываемый шаг.','Поймай мысль и эмоцию в конкретной ситуации.','Посмотри на факты за и против прогноза.','Напиши ответ себе и подготовь поддержку.','Придумай небольшую проверку.','Попробуй и запиши, что произошло.','Перечитай ответы и выбери следующий шаг.'].map(function(x){return '<li>' + esc(x) + '</li>';}).join('') + '</ol>';
+      obstaclePages.forEach(function(page,i){ h += item('#/dec/obstacles/' + (i+1), (i+1) + '. ' + page.title, 'открыть и заполнить'); });
+      h += '<div class="note"><small>записка</small><p>Можно идти в своём темпе. Для начала достаточно одного желания и одной посильной ситуации. Если переживаний слишком много, сделай паузу и открой копилку самопомощи.</p></div><button class="btn" data-go="#/dec/obstacles/1">Начать с одного желания →</button>';
+    } else {
+      var page = obstaclePages[part-1];
+      h += '<h3>' + esc(page.title) + '</h3><p class="hint">' + esc(page.intro) + '</p>';
+      var thought = val(obstacleKey(1,'thought'));
+      if (part === 2 && thought) h += '<div class="note"><small>мысль на столе</small><p>' + esc(thought) + '</p></div>';
+      if (part === 3 && val(obstacleKey(2,'reply'))) h += '<div class="note"><small>мой ответ себе</small><p>' + esc(val(obstacleKey(2,'reply'))) + '</p></div>';
+      h += '<details class="how"><summary>Посмотреть пример</summary><p>' + esc(page.example) + '</p></details>';
+      page.fields.forEach(function(f){ h += obstacleField(part,f[0],f[1]); });
+      if (part === 1) h += scaleRow(obstacleKey(1,'tension'),'Насколько сильна эмоция сейчас: 0–10?');
+      if (part === 2) h += scaleRow(obstacleKey(2,'tension'),'Насколько сильна эмоция после разбора: 0–10?');
+      h += '<div class="note"><small>записка</small><p>' + esc(page.note) + '</p></div>';
+      h += '<button class="btn" data-go="' + (part < 3 ? '#/dec/obstacles/' + (part+1) : '#/dec/week/4') + '">' + (part < 3 ? 'Сохранить и перейти дальше →' : 'К моим целям и шагам →') + '</button>';
+    }
     return h + '</section>';
   }
 
@@ -208,6 +251,7 @@
     else if (r[1] === 'goal' && mo.goal) h = viewGoal(mo);
     else if (r[1] === 'kit' && mo.kit) h = viewKit(mo);
     else if (r[1] === 'day') h = viewDay(mo, num(r[2], mo.days));
+    else if (mo.id === 'dec' && r[1] === 'obstacles') h = viewObstacles(mo, Math.max(0, Math.min(3, parseInt(r[2],10) || 0)));
     else if (r[1] === 'week') h = viewWeek(mo, num(r[2], 4));
     else if (r[1] === 'kitchen') h = viewKitchen(mo, num(r[2], 4));
     else if (r[1] === 'summary') h = viewSummary(mo);
@@ -223,7 +267,7 @@
     var savedEl = document.getElementById('saved');
     function saved(ok){ if (!savedEl) return; savedEl.textContent = ok ? 'сохранено ✓' : 'не удалось сохранить'; clearTimeout(savedEl._t); savedEl._t = setTimeout(function(){ savedEl.textContent = 'записи сохраняются сами'; }, 1800); }
     function grow(el){ el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
-    app.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click', function(){ location.hash = b.getAttribute('data-go'); }); });
+    app.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click', function(){ persist(); if (window.NSync) NSync.soon(); location.hash = b.getAttribute('data-go'); }); });
     var mb = app.querySelector('.months'); if (mb){ /* months-wheel */ mb.addEventListener('wheel', function(e){ if (Math.abs(e.deltaY) > Math.abs(e.deltaX)){ mb.scrollLeft += e.deltaY; e.preventDefault(); } }, { passive: false }); var on = mb.querySelector('.on'); if (on) mb.scrollLeft = on.offsetLeft - (mb.clientWidth - on.offsetWidth) / 2; }
     app.querySelectorAll('[data-soon]').forEach(function(b){ b.addEventListener('click', function(){ toast('Этот месяц пока готовится.'); }); });
     app.querySelectorAll('textarea, .tag input').forEach(function(el){
@@ -259,3 +303,5 @@
     window.NAPP = { setSync: function(k){ st.sync = k; persist(); NSync.run(); } };
   }
 })();
+
+
