@@ -42,7 +42,7 @@
       (mo.kit ? item('#/' + p + '/kit', 'Копилка самопомощи', 'техника месяца: ' + mo.kit.tech.name.toLowerCase(), null) : '') +
       item('#/' + p + '/card', 'Карта месяца', 'картинка и три вопроса', mo.img.card) + '</section>';
     h += '<p class="section-title">РАЗ В НЕДЕЛЮ · ≈15 МИНУТ</p><section class="card list">' +
-      mo.weeks.map(function(w, i){ return item('#/' + p + '/week/' + (i + 1), 'Неделя ' + (i + 1) + ': ' + w.short, started(p + '-w' + (i + 1) + '-') ? '✓ начато' : 'задание недели', mo.img.weeks[i]) + (p === 'dec' && i === 2 ? item('#/dec/obstacles/0', 'Хочу, но боюсь', started('dec-obstacles-v1-') ? '✓ начато · мысли, страхи и проверка на опыте' : 'перед целями и шагами · практика на неделю', null) : ''); }).join('') +
+      mo.weeks.map(function(w, i){ return item('#/' + p + '/week/' + (i + 1), 'Неделя ' + (i + 1) + ': ' + w.short, started(p + '-w' + (i + 1) + '-') ? '✓ начато' : 'задание недели', mo.img.weeks[i]) + (p === 'dec' && i === 2 ? item('#/dec/obstacles/0', 'Хочу, но боюсь', started('dec-obstacles-v1-') ? '✓ начато · мысли, страхи и проверка на опыте' : 'перед целями и шагами · практика на неделю', 'dec-obstacles') : ''); }).join('') +
       item('#/' + p + '/kitchen', 'Посиделки на кухне', 'по воскресеньям, три вопроса', mo.img.kitchen) + '</section>';
     h += '<p class="section-title">В КОНЦЕ МЕСЯЦА</p><section class="card list">' +
       item('#/' + p + '/summary', 'Итоги: ' + mo.name.toLowerCase(), 'и главный инсайт', mo.img.summary) +
